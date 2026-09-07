@@ -27,7 +27,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 - Still open (doesn't block scaffolding, but affects CDL-10/CDL-13 later): who maintains the site day-to-day (non-technical family member updating photos/projects?), whether a lightweight CMS is worth it for the Gallery/Services content, current hosting constraints.
 - **AC:** Repo scaffolded via `create-next-app` (TypeScript + Tailwind + App Router template); local dev running.
 
-**CDL-2 — Design tokens / global styles**
+**CDL-2 — Design tokens / global styles** ✅ Complete
 - Translate the mockup's CSS variables into Tailwind's theme system: extend `tailwind.config.ts` (colors, font families, spacing, border radii) and keep any raw CSS custom properties that Tailwind can't express in `app/globals.css`.
 - Tokens: background/ink/muted/line/accent colors (oklch-based; accent ≈ `oklch(47% 0.135 35)`, pulled from the existing Millwork diamond mark), type pairing (Source Serif 4 display / Work Sans body), spacing/button styles.
 - Load both fonts via `next/font/google` rather than a Google Fonts `<link>` tag — this self-hosts them automatically and feeds directly into CDL-23's font-loading question.
