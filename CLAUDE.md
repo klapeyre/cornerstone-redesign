@@ -42,6 +42,10 @@ website (Cornerstone Developments Ltd. + Cornerstone Millwork Inc.).
   by a divider (CDL-3).
 - Placeholders in the mockup (`[ADDRESS]`, `[PHONE]`, `[EMAIL]`, redrawn logo
   marks, placeholder photos) are intentional — don't invent real values.
+- **Comments**: don't add comments that restate what the code already says.
+  Write the code clearly enough — good names, small functions — that it doesn't
+  need narration. Reserve comments for genuinely unclear code: a non-obvious
+  workaround, a subtle constraint, or the "why" behind a surprising choice.
 - **Responsive** (CDL-5): build mobile-first and verify every page at 375px. The
   one layout breakpoint is Tailwind's default `md` (768px) — at `md`+ the layout
   matches the desktop mockup; below `md` the header's primary nav collapses to a
@@ -95,3 +99,13 @@ one commit per ticket (CDL-1 … CDL-25 as numbered in that plan).
 - Keep this file current: when a decision in the plan's "Open questions" is
   resolved, or a command/convention changes, update CLAUDE.md in the same change.
 - Prefer editing existing files over adding new ones.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

@@ -77,4 +77,46 @@
     border-color: var(--color-ink);
     color: var(--color-ink);
   }
+
+  /* Placeholder-image block — stands in for real project photography until it
+     lands (CDL-17). Shared by the home hero (CDL-6) and, later, the gallery
+     grid (CDL-11). Mirrors docs/sample_mockup.html .ph / .ph-label / .ph-tag. */
+  .ph {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: linear-gradient(150deg, oklch(84% 0.025 75), oklch(72% 0.04 55));
+  }
+
+  .ph::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      oklch(100% 0 0 / 0.06) 0 2px,
+      transparent 2px 14px
+    );
+  }
+
+  .ph-label {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    z-index: 1;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: oklch(100% 0 0 / 0.6);
+  }
+
+  .ph-tag {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 20px 24px;
+    color: oklch(100% 0 0);
+    background: linear-gradient(0deg, oklch(8% 0.008 75 / 0.78), transparent);
+  }
 }

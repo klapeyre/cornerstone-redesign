@@ -5,9 +5,29 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-07_
+_Last updated: 2026-09-08_
 
 ## Done
+
+- **CDL-6 — Hero section.** `app/components/Hero.tsx` (server component — static
+  content only), rendered by `app/page.tsx` inside a `flex-1 <main>` so the
+  shared footer stays pinned to the bottom. Mirrors the mockup hero
+  (`docs/sample_mockup.html` lines ~132-149): left column is the `Since 1983`
+  eyebrow, a `Custom construction & millwork, built to last.` display headline, a
+  muted `max-w-[46ch]` subhead, and the two CTAs — `View Our Work` → `/gallery`
+  (`.btn .btn-primary`) and `Our Services` → `/services` (`.btn .btn-outline`),
+  both `next/link`. Right column is a captioned photo placeholder using the new
+  shared `.ph` / `.ph-label` / `.ph-tag` component classes added to
+  `app/globals.css` (the CDL-2 note deferred these to the tickets that need them;
+  the gallery grid in CDL-11 reuses `.ph`). Responsive per the CDL-5 convention:
+  single-column stack with `px-6` below `md`, two-column grid (`md:grid-cols-2`,
+  64px gap) with `px-10` at `md`+; the CTA row is `flex-col sm:flex-row` and the
+  headline steps `text-[34px]` → `md:text-[44px]`. Hero copy and the featured
+  project ("5 Points · Mixed-use residential · Vancouver, BC") stay as mockup
+  placeholders pending client sign-off and real photography (CDL-17).
+  `npm run lint` and `npm run build` pass; desktop layout verified against the
+  mockup in the browser (the automation viewport could not be narrowed to 375px,
+  so the mobile reflow relies on the already-verified CDL-5 breakpoint patterns).
 
 - **CDL-5 — Responsive/mobile layout pass.** One layout breakpoint: Tailwind's
   default `md` (768px). At `md`+ the shared chrome matches the desktop mockup;
@@ -95,11 +115,11 @@ _Last updated: 2026-09-07_
 
 ## Next up
 
-- **CDL-6 — Hero section.**
+- **CDL-7 — Stats bar.**
 
 ## Not started
 
-CDL-7 … CDL-25 — see the plan.
+CDL-8 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
