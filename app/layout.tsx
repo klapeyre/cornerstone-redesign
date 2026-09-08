@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, Work_Sans } from "next/font/google";
+import Header from "./components/Header";
 import "./globals.css";
 
 const sourceSerif4 = Source_Serif_4({
@@ -25,7 +26,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${sourceSerif4.variable} ${workSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

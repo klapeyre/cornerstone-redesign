@@ -23,29 +23,31 @@
   --font-body: var(--font-work-sans), "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
-body {
-  background: var(--color-bg);
-  color: var(--color-ink);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-}
+@layer base {
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
 
-a {
-  color: var(--color-accent);
-  text-decoration: none;
-}
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
 
-a:hover {
-  color: var(--color-accent-hover);
-}
+  a:hover {
+    color: var(--color-accent-hover);
+  }
 
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
-  margin: 0;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
 }
 
 @layer components {

@@ -9,6 +9,27 @@ _Last updated: 2026-09-07_
 
 ## Done
 
+- **CDL-3 — Shared Header component.** `app/components/Header.tsx` (client
+  component, uses `usePathname` for active-nav state) renders both wordmarks
+  (Developments hammer mark + Millwork diamond mark, divided) and the
+  Home/Gallery/Services nav with `Client Login` set apart by a divider as a
+  small muted secondary link, per the mockup header exactly (`docs/
+  sample_mockup.html` lines ~105-130). Logo marks are shared SVG components in
+  `app/components/icons/logos.tsx` (`currentColor`-based, sized/colored via
+  Tailwind classes) rather than the JPG assets added to `assets/` — kept unused
+  for now per direction to use the mockup's SVGs instead. Rendered once in
+  `app/layout.tsx` so it's shared across all routes. Not sticky — matches the
+  mockup, which has no scroll-position styling on its header.
+  - Fixed a pre-existing bug found while verifying this in the browser: the
+    global `a`/`a:hover`/`body`/`h1-h3` rules in `app/globals.css` were
+    unlayered plain CSS, which beats any Tailwind utility class regardless of
+    source order (Tailwind utilities live in `@layer utilities`). This made
+    `text-ink`/`text-accent` no-ops on links — every nav link rendered in the
+    global accent color, so active vs. inactive state was invisible. Wrapped
+    those base rules in `@layer base` so component-level utilities can
+    override them, and confirmed active-state coloring now works via browser
+    screenshot.
+
 - **CDL-1 — Scaffold.** Next.js 16 (App Router) + TypeScript + Tailwind CSS v4,
   scaffolded via `create-next-app` (`--no-src-dir`, `@/*` import alias). `npm run
   dev`, `npm run build`, and `npm run lint` all pass. `app/` still holds the
@@ -34,11 +55,11 @@ _Last updated: 2026-09-07_
 
 ## Next up
 
-- **CDL-3 — Shared Header component.**
+- **CDL-4 — Shared Footer component.**
 
 ## Not started
 
-CDL-4 … CDL-25 — see the plan.
+CDL-5 … CDL-25 — see the plan.
 
 ## Notes carried forward
 

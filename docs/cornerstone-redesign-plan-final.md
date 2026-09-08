@@ -33,7 +33,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 - Load both fonts via `next/font/google` rather than a Google Fonts `<link>` tag — this self-hosts them automatically and feeds directly into CDL-23's font-loading question.
 - **AC:** Tokens match the mockup 1:1; verified against `Main.dc.html`'s `:root` block in the mockup source.
 
-**CDL-3 — Shared Header component**
+**CDL-3 — Shared Header component** ✅ Complete
 - Both logos (Developments hammer mark + Millwork diamond mark) side by side, divided, roughly equal visual weight. Nav: Home / Gallery / Services. Login set apart by a divider as a small, muted secondary link — never in the primary nav group.
 - **AC:** Matches mockup header; active-page nav state; behavior on scroll (sticky or not) decided.
 
