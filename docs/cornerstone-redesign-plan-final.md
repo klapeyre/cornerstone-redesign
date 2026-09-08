@@ -41,9 +41,10 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 - Both logos (smaller), contact info, copyright, "Client / Trade Login" link.
 - **AC:** Matches mockup footer; placeholders replaced once CDL-20 lands.
 
-**CDL-5 — Responsive/mobile layout pass**
+**CDL-5 — Responsive/mobile layout pass** ✅ Complete
 - Mockup is desktop-only (1440px frames). Mobile nav (hamburger/collapse), hero stacking, grid reflow, touch target sizing (≥44px) all need defining — none of this exists in the mockup yet.
 - **AC:** Breakpoints documented; nav collapses below a defined width; every page usable at phone width.
+- Resolved: single layout breakpoint at Tailwind `md` (768px); below it the header nav collapses to a hamburger opening a full-screen overlay menu; page padding `px-6`→`px-10` at `md`; touch targets ≥44px. Applied to the shared Header/Footer and documented in CLAUDE.md as the convention every later page ticket follows. Per-page stacking/grid reflow (hero, gallery grid, service cards) is handled in each page's own ticket against this convention.
 
 ---
 
@@ -153,7 +154,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 
 - ~~Tech stack (CDL-1)~~ — resolved: Next.js (App Router) + TypeScript, Tailwind CSS for styling.
 - CMS vs. hardcoded/JSON data for Gallery and Services content, within that Next.js stack (see CDL-10).
-- Mobile nav pattern and breakpoints.
+- ~~Mobile nav pattern and breakpoints~~ — resolved (CDL-5): collapse at Tailwind `md` (768px) to a full-screen hamburger overlay; see CLAUDE.md "Responsive".
 - What's actually behind Login (CDL-16).
 - Hosting/deploy target.
 - Timeline and budget.

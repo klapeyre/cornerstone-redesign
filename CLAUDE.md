@@ -42,6 +42,13 @@ website (Cornerstone Developments Ltd. + Cornerstone Millwork Inc.).
   by a divider (CDL-3).
 - Placeholders in the mockup (`[ADDRESS]`, `[PHONE]`, `[EMAIL]`, redrawn logo
   marks, placeholder photos) are intentional — don't invent real values.
+- **Responsive** (CDL-5): build mobile-first and verify every page at 375px. The
+  one layout breakpoint is Tailwind's default `md` (768px) — at `md`+ the layout
+  matches the desktop mockup; below `md` the header's primary nav collapses to a
+  hamburger that opens a full-screen overlay menu. Page horizontal padding is
+  `px-6` (24px) below `md` and `px-10` (40px) at `md`+ (the mockup's desktop
+  value). `sm` (640px) is used only for minor within-component reflow (e.g. the
+  footer's brand/contact rows). Interactive/touch targets are ≥44px.
 
 ## Commands
 

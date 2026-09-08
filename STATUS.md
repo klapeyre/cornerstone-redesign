@@ -9,6 +9,29 @@ _Last updated: 2026-09-07_
 
 ## Done
 
+- **CDL-5 — Responsive/mobile layout pass.** One layout breakpoint: Tailwind's
+  default `md` (768px). At `md`+ the shared chrome matches the desktop mockup;
+  below `md` the header's primary nav collapses to a hamburger button (≥44px hit
+  target) that opens a full-screen overlay menu — `app/components/Header.tsx` is
+  still a client component and now holds `menuOpen` state, locks body scroll
+  while open, moves focus to the overlay's close button, and closes on Escape /
+  route change (full focus-trapping deferred to CDL-22). The overlay reuses the
+  same `NAV_LINKS` array and active-path logic; the desktop nav/brand and the
+  mobile brand are separate `hidden md:flex` / `flex md:hidden` subtrees. On
+  mobile the two-lockup brand condenses to both marks + a single `CORNERSTONE`
+  wordmark, with the `Developments Ltd. + Millwork Inc.` sublabel hidden below
+  480px. `app/components/Footer.tsx` (still a server component) reflows: the
+  brand row and contact row stack column-wise below `sm` (640px) and the whole
+  foot-top goes column below `md`; the foot-bottom copyright/login row stacks
+  below `sm`. Page horizontal padding is `px-6` (24px) below `md`, `px-10`
+  (40px) at `md`+ — the footer keeps its existing doubled desktop inset
+  (`px-10` on `<footer>` + `md:px-10` on the inner max-width wrappers). Breakpoint
+  system documented in CLAUDE.md ("Responsive" bullet) as the convention the
+  later page tickets build against; the plan's "Mobile nav pattern and
+  breakpoints" open question is marked resolved. Per-page stacking/grid reflow
+  (hero, gallery grid, service cards) stays with each page's own ticket.
+  `npm run lint` and `npm run build` pass.
+
 - **CDL-4 — Shared Footer component.** `app/components/Footer.tsx` (server
   component — no interactivity needed) renders the mockup footer exactly
   (`docs/sample_mockup.html` lines ~208-230 / footer styles ~55-59): the
@@ -72,11 +95,11 @@ _Last updated: 2026-09-07_
 
 ## Next up
 
-- **CDL-5 — Responsive/mobile layout pass.**
+- **CDL-6 — Hero section.**
 
 ## Not started
 
-CDL-6 … CDL-25 — see the plan.
+CDL-7 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
