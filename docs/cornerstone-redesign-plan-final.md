@@ -37,7 +37,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 - Both logos (Developments hammer mark + Millwork diamond mark) side by side, divided, roughly equal visual weight. Nav: Home / Gallery / Services. Login set apart by a divider as a small, muted secondary link — never in the primary nav group.
 - **AC:** Matches mockup header; active-page nav state; behavior on scroll (sticky or not) decided.
 
-**CDL-4 — Shared Footer component**
+**CDL-4 — Shared Footer component** ✅ Complete
 - Both logos (smaller), contact info, copyright, "Client / Trade Login" link.
 - **AC:** Matches mockup footer; placeholders replaced once CDL-20 lands.
 

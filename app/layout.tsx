@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, Work_Sans } from "next/font/google";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import "./globals.css";
 
 const sourceSerif4 = Source_Serif_4({
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

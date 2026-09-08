@@ -9,6 +9,23 @@ _Last updated: 2026-09-07_
 
 ## Done
 
+- **CDL-4 — Shared Footer component.** `app/components/Footer.tsx` (server
+  component — no interactivity needed) renders the mockup footer exactly
+  (`docs/sample_mockup.html` lines ~208-230 / footer styles ~55-59): the
+  darkest `--floor` layer, a top row with both brand marks single-line
+  (`CORNERSTONE DEVELOPMENTS` with the hammer mark in `--floor-ink`,
+  `CORNERSTONE MILLWORK` with the diamond mark in `--accent`) on the left and
+  the `[ADDRESS]` / `[PHONE]` / `[EMAIL]` placeholders on the right, a
+  `--floor-line` divider, then a bottom row with the copyright line and the
+  `Client / Trade Login` link (points at `/login`, same as the header; rendered
+  muted via `text-floor-muted`, relying on the CDL-3 `@layer base` fix so the
+  utility beats the global `a` accent color). Logo marks reuse the shared
+  `app/components/icons/logos.tsx` components rather than re-drawing the
+  mockup's inline SVGs. Rendered once in `app/layout.tsx` after `{children}`,
+  so it's shared across all routes. Placeholders stay literal pending CDL-20.
+  `npm run lint` and `npm run build` pass; verified against the mockup in the
+  browser.
+
 - **CDL-3 — Shared Header component.** `app/components/Header.tsx` (client
   component, uses `usePathname` for active-nav state) renders both wordmarks
   (Developments hammer mark + Millwork diamond mark, divided) and the
@@ -55,11 +72,11 @@ _Last updated: 2026-09-07_
 
 ## Next up
 
-- **CDL-4 — Shared Footer component.**
+- **CDL-5 — Responsive/mobile layout pass.**
 
 ## Not started
 
-CDL-5 … CDL-25 — see the plan.
+CDL-6 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
