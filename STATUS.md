@@ -5,9 +5,29 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-08_
+_Last updated: 2026-09-09_
 
 ## Done
+
+- **CDL-7 — Stats bar.** `app/components/Stats.tsx` (server component — static
+  content only), rendered by `app/page.tsx` immediately after `<Hero>`. Mirrors
+  the mockup's recessed stats band (`docs/sample_mockup.html` lines ~151-170): a
+  `bg-alt` section with `border-y border-line` wrapping a `max-w-[1200px]` grid of
+  four centered cells, each a `font-display text-[34px] text-accent` number over a
+  `text-xs uppercase tracking-[0.06em] text-muted` label. Data is a local `stats`
+  array. The AC's open question is resolved in favour of auto-calculating: a
+  `FOUNDED_YEAR = 1983` const drives `yearsInBusiness = new Date().getFullYear() -
+  FOUNDED_YEAR` (43 as of 2026, matching the mockup) so the credibility band never
+  goes stale; the remaining values are literals — 25 completed projects (CDL-10's
+  count), 2 divisions, 3 service categories (CDL-13's Doors/Mouldings/Millwork).
+  Responsive per the CDL-5 convention: `grid-cols-2` with `px-6` below `md`
+  (2×2 layout, inter-cell dividers via `max-md:[&:nth-child(2n+1)]:border-r` +
+  `max-md:[&:nth-child(n+3)]:border-t`), `md:grid-cols-4` with `px-10` at `md`+
+  (the mockup's single row, `md:border-r` on every cell and
+  `md:[&:last-child]:border-r-0` to drop the trailing divider). `npm run lint`
+  and `npm run build` pass; desktop layout verified against the mockup in the
+  browser (automation viewport still can't be narrowed below ~1440px, so the
+  mobile reflow relies on the verified CDL-5 breakpoint patterns).
 
 - **CDL-6 — Hero section.** `app/components/Hero.tsx` (server component — static
   content only), rendered by `app/page.tsx` inside a `flex-1 <main>` so the
@@ -115,11 +135,11 @@ _Last updated: 2026-09-08_
 
 ## Next up
 
-- **CDL-7 — Stats bar.**
+- **CDL-8 — Services preview section.**
 
 ## Not started
 
-CDL-8 … CDL-25 — see the plan.
+CDL-9 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
