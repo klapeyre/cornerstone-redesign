@@ -5,9 +5,37 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-09_
+_Last updated: 2026-09-09_ (CDL-9)
 
 ## Done
+
+- **CDL-9 — Featured work section.** `app/components/FeaturedWork.tsx` (server
+  component), rendered by `app/page.tsx` after `<ServicesPreview>`. Mirrors the
+  mockup's "Recent Work" strip (`docs/sample_mockup.html` lines ~196-206): a
+  `.page-shell` section (`py-14 md:pt-[72px] md:pb-[88px]`) with a
+  baseline-aligned head (`text-[28px]` "Recent Work" + a `text-[13px]
+  font-semibold` "View full gallery →" link to `/gallery`) over a three-up grid
+  (`grid gap-6 md:grid-cols-3`, single-column stack below `md` per CDL-5). Each
+  card is a `next/link` to `/gallery` styled as a `.ph` placeholder
+  (`aspect-[4/3] rounded-xs`) with a `.ph-tag` caption in the display font — real
+  photos land in CDL-17. Gradient variety uses the mockup's `.ph-a … .ph-d`
+  classes, cycled by index; `.ph-b/.ph-c/.ph-d` were added to `app/globals.css`
+  (`@layer components`, next to `.ph`) 1:1 with the mockup — `.ph-a` is the
+  existing default.
+  - **Project data source (minimal, pending CDL-10).** New `content/projects.ts`
+    exports a typed `Project` (`slug`, `name`, `featured`, `images: string[]`),
+    the `projects` array (all 25 mockup gallery names, in mockup order, with
+    stable kebab-case slugs for the CDL-12 detail route), and
+    `featuredProjects` (the three the mockup's Recent Work shows — Alexandra
+    Court Clubhouse, Astoria, Kensington — flagged `featured: true`).
+    FeaturedWork reads `featuredProjects` from here, so CDL-11's Gallery grid
+    reads the same file — no duplicated project data, satisfying the CDL-9 AC.
+    CDL-10 still owns the full schema (category/division, thumbnails, full image
+    sets) and the CMS-vs-local decision; `images` is an empty array on every
+    entry until CDL-17.
+  - `npm run lint` and `npm run build` pass; desktop layout verified against the
+    mockup in the browser (automation viewport still can't narrow below ~1440px,
+    so the mobile stack relies on the verified CDL-5 breakpoint patterns).
 
 - **CDL-8 — Services preview section.** `app/components/ServicesPreview.tsx`
   (server component — static content only), rendered by `app/page.tsx` after
@@ -157,12 +185,14 @@ _Last updated: 2026-09-09_
 
 ## Next up
 
-- **CDL-9 — Featured work section.** Blocked on CDL-10's project data model —
-  it must read the same source as the Gallery, no duplicated project data.
+- **CDL-10 — Project data model.** Formalize the schema on top of the minimal
+  `content/projects.ts` that CDL-9 introduced: add category/division, thumbnail,
+  and full image set per project, and resolve the CMS-vs-local decision (see the
+  plan's Open questions).
 
 ## Not started
 
-CDL-10 … CDL-25 — see the plan.
+CDL-11 … CDL-25 — see the plan.
 
 ## Notes carried forward
 

@@ -61,23 +61,12 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 **CDL-7 — Stats bar** ✅ Complete
 - Four-stat credibility band: years in business, completed projects, divisions, service categories.
 - **AC:** Values sourced from real data (confirm whether "years in business" should auto-calculate from 1983); responsive stacking on mobile.
-- Landed as `app/components/Stats.tsx` (server component — static content), rendered
-  by `app/page.tsx` after `<Hero>`. Recessed `bg-alt` band with `border-y`, matching
-  the mockup (`docs/sample_mockup.html` lines ~151-170): four centered cells with a
-  `font-display` accent number and an uppercase muted label. Resolved the AC's open
-  question by auto-calculating "years in business" from `FOUNDED_YEAR = 1983`
-  (`new Date().getFullYear() - 1983`) so the band never goes stale between rebuilds;
-  the other three values (25 completed projects, 2 divisions, 3 service categories)
-  are literals tied to CDL-10 / CDL-13. Responsive per CDL-5: 2×2 grid with
-  `max-md:` nth-child dividers below `md`, the mockup's 4-across row with right
-  dividers (last cell excepted) at `md`+. `npm run lint` and `npm run build` pass;
-  desktop layout verified against the mockup in the browser.
 
-**CDL-8 — Services preview section**
+**CDL-8 — Services preview section** ✅ Complete
 - Three category cards (Doors / Mouldings / Millwork) linking to the full Services page.
 - **AC:** Matches mockup; icons shared with CDL-13, not redrawn twice.
 
-**CDL-9 — Featured work section**
+**CDL-9 — Featured work section** ✅ Complete
 - Three-project preview strip linking to the Gallery.
 - **AC:** Pulls from the same project data source as CDL-10/CDL-11 — no duplicated project data between Home and Gallery.
 

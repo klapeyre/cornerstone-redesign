@@ -1,6 +1,7 @@
 import Hero from "./components/Hero";
 import Stats from "./components/Stats";
 import ServicesPreview from "./components/ServicesPreview";
+import FeaturedWork from "./components/FeaturedWork";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <Stats />
       <ServicesPreview />
+      <FeaturedWork />
     </main>
   );
 }

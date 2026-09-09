@@ -100,6 +100,20 @@
     background: linear-gradient(150deg, oklch(84% 0.025 75), oklch(72% 0.04 55));
   }
 
+  /* Gradient variants for visual variety across a grid of placeholders —
+     mirrors docs/sample_mockup.html .ph-a … .ph-d. .ph-a is the default. */
+  .ph-b {
+    background: linear-gradient(150deg, oklch(82% 0.025 60), oklch(69% 0.045 40));
+  }
+
+  .ph-c {
+    background: linear-gradient(150deg, oklch(83% 0.02 90), oklch(71% 0.03 70));
+  }
+
+  .ph-d {
+    background: linear-gradient(150deg, oklch(81% 0.022 105), oklch(68% 0.032 85));
+  }
+
   .ph::after {
     content: "";
     position: absolute;
