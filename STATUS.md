@@ -9,6 +9,26 @@ _Last updated: 2026-09-09_
 
 ## Done
 
+- **CDL-8 — Services preview section.** `app/components/ServicesPreview.tsx`
+  (server component — static content only), rendered by `app/page.tsx` after
+  `<Stats>`. Mirrors the mockup's "What We Do" section
+  (`docs/sample_mockup.html` lines ~172-193): a `.page-shell` section with a
+  baseline-aligned head (`text-[28px]` "What We Do" + a `text-[13px] font-semibold`
+  "View all services →" link to `/services`) over a three-up card grid. Each card
+  is a `next/link` to `/services` styled `border border-line bg-card p-7` with an
+  accent category icon, a `text-ink` `h3` (the `text-ink` utility is needed so the
+  heading doesn't inherit the global link-accent colour from wrapping the card in
+  an anchor), and a `text-muted` blurb — copy taken verbatim from the mockup.
+  Category icons live in the new shared `app/components/icons/services.tsx`
+  (`DoorsIcon` / `MouldingsIcon` / `MillworkIcon`, `currentColor`-based, sized via
+  props like `icons/logos.tsx`) so CDL-13's Services page reuses them rather than
+  redrawing — satisfying the AC. Responsive per CDL-5: single-column stack with
+  `px-6` below `md`, the mockup's `md:grid-cols-3` row with `px-10` at `md`+;
+  vertical rhythm follows the Hero/Stats idiom (`py-14` → `md:pt-[72px] md:pb-2`).
+  `npm run lint` and `npm run build` pass; desktop layout verified against the
+  mockup in the browser (automation viewport still can't narrow below ~1440px, so
+  the mobile reflow relies on the verified CDL-5 breakpoint patterns).
+
 - **CDL-7 — Stats bar.** `app/components/Stats.tsx` (server component — static
   content only), rendered by `app/page.tsx` immediately after `<Hero>`. Mirrors
   the mockup's recessed stats band (`docs/sample_mockup.html` lines ~151-170): a
@@ -137,11 +157,12 @@ _Last updated: 2026-09-09_
 
 ## Next up
 
-- **CDL-8 — Services preview section.**
+- **CDL-9 — Featured work section.** Blocked on CDL-10's project data model —
+  it must read the same source as the Gallery, no duplicated project data.
 
 ## Not started
 
-CDL-9 … CDL-25 — see the plan.
+CDL-10 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
