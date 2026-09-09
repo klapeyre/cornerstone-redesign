@@ -16,11 +16,22 @@
   --color-floor-line: oklch(25% 0.014 75);
   --color-floor-ink: oklch(95% 0.006 75);
   --color-floor-muted: oklch(66% 0.012 75);
+  --container-page: 1280px;
 }
 
 @theme inline {
   --font-display: var(--font-source-serif-4), Georgia, "Times New Roman", serif;
   --font-body: var(--font-work-sans), "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+@utility page-shell {
+  margin-inline: auto;
+  max-width: var(--container-page);
+  padding-inline: 1.5rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2.5rem;
+  }
 }
 
 @layer base {

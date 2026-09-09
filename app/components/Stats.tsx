@@ -13,7 +13,7 @@ const stats = [
 export default function Stats() {
   return (
     <section className="border-y border-line bg-bg-alt">
-      <div className="mx-auto grid max-w-[1200px] grid-cols-2 px-6 py-10 md:grid-cols-4 md:px-10">
+      <div className="page-shell grid grid-cols-2 py-10 md:grid-cols-4">
         {stats.map(({ value, label }) => (
           <div
             key={label}

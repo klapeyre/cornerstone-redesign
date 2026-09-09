@@ -12,8 +12,9 @@ _Last updated: 2026-09-09_
 - **CDL-7 — Stats bar.** `app/components/Stats.tsx` (server component — static
   content only), rendered by `app/page.tsx` immediately after `<Hero>`. Mirrors
   the mockup's recessed stats band (`docs/sample_mockup.html` lines ~151-170): a
-  `bg-alt` section with `border-y border-line` wrapping a `max-w-[1200px]` grid of
-  four centered cells, each a `font-display text-[34px] text-accent` number over a
+  `bg-alt` section with `border-y border-line` (full-bleed) wrapping a
+  `.page-shell` grid (see the ad-hoc content-width note below) of four centered
+  cells, each a `font-display text-[34px] text-accent` number over a
   `text-xs uppercase tracking-[0.06em] text-muted` label. Data is a local `stats`
   array. The AC's open question is resolved in favour of auto-calculating: a
   `FOUNDED_YEAR = 1983` const drives `yearsInBusiness = new Date().getFullYear() -
@@ -64,8 +65,9 @@ _Last updated: 2026-09-09_
   brand row and contact row stack column-wise below `sm` (640px) and the whole
   foot-top goes column below `md`; the foot-bottom copyright/login row stacks
   below `sm`. Page horizontal padding is `px-6` (24px) below `md`, `px-10`
-  (40px) at `md`+ — the footer keeps its existing doubled desktop inset
-  (`px-10` on `<footer>` + `md:px-10` on the inner max-width wrappers). Breakpoint
+  (40px) at `md`+, now applied through the shared `.page-shell` utility (see the
+  ad-hoc content-width note below), which also removed the footer's former
+  doubled desktop inset. Breakpoint
   system documented in CLAUDE.md ("Responsive" bullet) as the convention the
   later page tickets build against; the plan's "Mobile nav pattern and
   breakpoints" open question is marked resolved. Per-page stacking/grid reflow
@@ -146,3 +148,14 @@ CDL-9 … CDL-25 — see the plan.
 - Tailwind v4 is CSS-first: theme config is `@theme` in `app/globals.css`, not a
   `tailwind.config.ts`. The plan text predates this.
 - Node.js is installed on this machine via Homebrew (`/opt/homebrew/bin/node`).
+- **Ad-hoc content-width change (outside the plan).** Header, Footer, Hero, and
+  Stats now share one centered content column via the `.page-shell` utility in
+  `app/globals.css` (`margin-inline: auto`, `max-width: var(--container-page)`,
+  and the `px-6` → `md:px-10` gutters). `--container-page` is `1280px` — wider
+  than the mockup's `1200px` `.container` so the layout doesn't letterbox on
+  larger displays; change that one token to retune it. This deliberately departs
+  from the mockup in two ways: the mockup's header has no width cap at all, and
+  its footer nested `.container` inside `<footer>`'s own 40px padding for a
+  doubled inset. Both are gone so every section's left/right content edges line
+  up. Full-bleed backgrounds (header bottom border, stats `border-y` band,
+  footer `--floor` panel) stay on the outer element and still span the viewport.

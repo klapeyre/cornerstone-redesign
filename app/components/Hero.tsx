@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="mx-auto grid max-w-[1200px] items-center gap-12 px-6 py-14 md:grid-cols-2 md:gap-16 md:px-10 md:pt-[72px] md:pb-16">
+    <section className="page-shell grid items-center gap-12 py-14 md:grid-cols-2 md:gap-16 md:pt-[72px] md:pb-16">
       <div className="flex flex-col gap-[22px]">
         <span className="text-xs font-semibold tracking-[0.14em] text-accent uppercase">
           Since 1983
