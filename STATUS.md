@@ -5,9 +5,67 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-10_ (CDL-11)
+_Last updated: 2026-09-10_ (CDL-12)
 
 ## Done
+
+- **CDL-12 — Project detail lightbox.** `app/components/Lightbox.tsx` (client) +
+  `app/components/GalleryGrid.tsx` (client). The Gallery page (`app/gallery/
+  page.tsx`) stays a server component and its `<main>`/intro/`metadata` are
+  unchanged; the grid `<ul>` moved into `GalleryGrid`, which owns the
+  `activeProject` state and renders `<Lightbox>`. Grid cards are now `<button>`s
+  (`aria-label="View photos of <name>"`) that open the overlay; a project with an
+  empty `images` array falls back to the non-interactive placeholder card
+  (`images` is populated for all 25 today — the guard keeps the graceful state).
+  The first card's cover `<Image>` gets `priority` (it's the above-the-fold LCP
+  element — clears a Next.js `loading="eager"` console warning). On `hover` an
+  interactive card gains a 1px accent ring (2px on `focus-visible`) on top of
+  the existing `-translate-y-0.5` lift — a light touch using the theme's
+  reddish-brown accent.
+  `Lightbox` mirrors the mockup's `#lightbox` (`docs/sample_mockup.html`
+  ~77-89 / ~496-516): a `fixed inset-0 z-[600]` panel at
+  `bg-[oklch(9%_0.006_75/0.97)]`, a top bar with the project name +
+  zero-padded counter (`03 / 07`, `aria-live="polite"`) + explicit close button,
+  a stage with flanking circular prev/next arrows and the photo, and a
+  clickable dot strip below (accent = current). No per-photo subtitle — CDL-10
+  dropped category/division and there's no source for one, so the mockup's
+  "Mixed-use residential · Vancouver, BC" line is omitted rather than invented.
+  Reads `projectsBySlug`'s image sets via the `Project` passed down from the
+  page (`content/projects.ts`), so Home/Gallery/Lightbox share one data source.
+  - **Accessibility (AC):** `role="dialog"` + `aria-modal` + `aria-label`;
+    body-scroll lock while open; focus moves into the dialog on open and is
+    restored to the triggering card on close; a `keydown` handler wraps Tab
+    within the dialog (focus trap), maps ArrowLeft/ArrowRight to prev/next
+    (wrapping), and Esc to close. All controls have `aria-label`s; dots carry
+    `aria-current`. Full page-level `inert`/focus-trap hardening is still CDL-22.
+  - **Focus/hover affordances.** The prev/next arrows and the close button
+    (shared `ICON_BUTTON` class) invert to a filled `bg-ink` circle with a
+    `text-on-accent` icon on `hover` and `focus-visible`, so it's obvious
+    they're clickable and where keyboard focus is. Dots grow on
+    `focus-visible`. The dialog container is programmatically focused (for the
+    keydown handler + screen readers) so it carries `outline-none` — otherwise
+    its `fixed inset-0` box drew a focus ring around the whole viewport. When
+    the lightbox closes and focus returns to the originating gallery card, that
+    card shows a deliberate 2px accent `focus-visible` ring (see the grid hover
+    note below) instead of the UA default outline.
+  - **Lazy-loading (AC):** only the current photo and its two neighbours are in
+    the DOM (`Math.abs(i - index) > 1` → not rendered); neighbours render at
+    `opacity-0` so the browser prefetches them for snappy nav, everything else
+    is never requested. Current photo is `priority`, `next/image` `fill` +
+    `object-contain`.
+  - Basic touch-swipe on the stage (>50px horizontal delta) as a mobile
+    affordance; keyboard + arrows remain the primary nav the AC calls for.
+  - `key={activeProject?.slug}` on `<Lightbox>` from `GalleryGrid` resets the
+    carousel to photo 1 per project via remount (avoids a
+    setState-in-effect lint error).
+  - `npm run lint` and `npm run build` pass (`/gallery` still prerenders
+    static). Verified in the browser at desktop width: open from a card, arrow
+    + keyboard nav advance the counter/dot/photo, Esc closes and returns focus
+    to the card (branded accent ring, no viewport-wide outline), and the
+    arrow/close buttons invert on hover. Automation viewport still can't narrow
+    below ~1440px, so the
+    mobile layout (single-column stage, `px-3` gutters, 44px-tall dot hit
+    areas) relies on the verified CDL-5 breakpoint patterns.
 
 - **CDL-11 — Gallery grid page.** `app/gallery/page.tsx` (server component),
   rendered inside a `flex-1 <main>` so the shared footer stays pinned. Mirrors
@@ -233,16 +291,15 @@ _Last updated: 2026-09-10_ (CDL-11)
 
 ## Next up
 
-- **CDL-12 — Project detail lightbox.** Full-screen overlay carousel per
-  project, opened from the CDL-11 gallery cards: left/right arrow nav,
-  dot-thumbnail strip, explicit image counter, explicit close button, keyboard
-  support (arrows + Esc), focus trap + aria labels, lazy-loaded offscreen
-  images. Reads image sets from `content/projects.ts` (`projectsBySlug`).
-  Replaces the old Jssor carousel — see the plan for the parity note.
+- **CDL-13 — Services page.** Three category cards (Doors, Mouldings, Millwork)
+  with full item lists as styled chips/tags, replacing the live site's raw
+  bullet HTML. Reuse the shared icons from `app/components/icons/services.tsx`
+  (CDL-8). Item lists and grouping are spelled out in the plan; AC needs client
+  sign-off on the final list.
 
 ## Not started
 
-CDL-13 … CDL-25 — see the plan.
+CDL-14 … CDL-25 — see the plan.
 
 ## Notes carried forward
 

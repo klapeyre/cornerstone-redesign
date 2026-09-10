@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import GalleryGrid from "@/app/components/GalleryGrid";
 import { projects } from "@/content/projects";
 
 export const metadata: Metadata = {
@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   description:
     "Completed projects across construction and custom millwork by Cornerstone Developments and Cornerstone Millwork.",
 };
-
-const tones = ["ph-a", "ph-b", "ph-c", "ph-d"];
 
 export default function GalleryPage() {
   return (
@@ -25,32 +23,7 @@ export default function GalleryPage() {
       </section>
 
       <section className="page-shell pt-9 pb-14 md:pb-[88px]">
-        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-          {projects.map((project, i) => (
-            <li key={project.slug}>
-              <article className="group relative flex aspect-[4/3] items-end overflow-hidden rounded-xs transition-transform duration-150 hover:-translate-y-0.5">
-                {project.cover ? (
-                  <Image
-                    src={project.cover.src}
-                    alt={project.name}
-                    fill
-                    sizes="(min-width: 768px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div
-                    className={`ph ${tones[i % tones.length]} absolute inset-0`}
-                  >
-                    <span className="ph-label">Photo coming soon</span>
-                  </div>
-                )}
-                <div className="ph-tag p-[14px] px-4 font-display text-sm">
-                  {project.name}
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
+        <GalleryGrid projects={projects} />
       </section>
     </main>
   );

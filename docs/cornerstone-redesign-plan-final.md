@@ -83,7 +83,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 - Responsive grid of project cards driven by CDL-10's data.
 - **AC:** Matches mockup grid; real images swap in as supplied (CDL-17); graceful placeholder state for projects without photos yet.
 
-**CDL-12 — Project detail lightbox**
+**CDL-12 — Project detail lightbox** ✅ Complete
 - Full-screen overlay carousel per project: left/right arrow nav, dot-thumbnail strip, explicit image counter ("3 / 12"), explicit close button. This replaces the current Jssor-based carousel — it's the one interaction being deliberately preserved from the old site, just restyled and (per this ticket) made more usable.
 - **AC:** Keyboard support (arrow keys to navigate, Esc to close); focus trap + aria labels for accessibility; matches mockup visuals; lazy-loads offscreen images.
 - **Note:** Check whether the current site supports keyboard/swipe navigation before calling this "parity" — the review of the old site didn't confirm this either way.
