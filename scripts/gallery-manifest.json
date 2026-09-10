@@ -1,0 +1,158 @@
+{
+  "source": "https://www.cdl1983.ca/a/Gallery.php",
+  "baseUrl": "https://www.cdl1983.ca/Pictures/Pictures",
+  "capturedAt": "2026-09-09",
+  "note": "files[] is in the live carousel order; files[0] is the grid tile / cover. slug/name match content/projects.ts. Regenerate with the snippet in the plan if the live site changes.",
+  "projects": [
+    {
+      "slug": "5-points",
+      "name": "5 Points",
+      "folder": "5 Points",
+      "files": ["000.jpg", "20200929_163506.jpg", "20200929_163508.jpg", "20200929_163515.jpg", "20200929_163519.jpg", "20200929_163530.jpg", "20200929_163533.jpg", "20200929_164203.jpg", "20211004_083357.jpg", "20211004_083404.jpg", "20211004_083433.jpg", "20211004_083438.jpg"]
+    },
+    {
+      "slug": "alexandra-court-clubhouse",
+      "name": "Alexandra Court Clubhouse",
+      "folder": "Alexandra Court Clubhouse",
+      "files": ["Alexandra Court Clubhouse Exterior.jpg", "IMG_2862.JPG", "IMG_2863.JPG", "IMG_2864.JPG", "IMG_2865.JPG", "IMG_2866.JPG", "IMG_2867.JPG"]
+    },
+    {
+      "slug": "astoria",
+      "name": "Astoria",
+      "folder": "Astoria",
+      "files": ["Alexandra-Court-Exterior.jpg", "IMG_3276.JPG", "IMG_3277.JPG", "IMG_3278.JPG", "IMG_3279.JPG", "IMG_3280.JPG", "IMG_3281.JPG", "IMG_3282.JPG", "IMG_3283.JPG"]
+    },
+    {
+      "slug": "athenry",
+      "name": "Athenry",
+      "folder": "Athenry",
+      "files": ["Athenry 0 Exterior.jpg", "Athenry 1.JPG", "Athenry 2.JPG", "Athenry 3.JPG"]
+    },
+    {
+      "slug": "aucoin-residence",
+      "name": "Aucoin Residence",
+      "folder": "Aucoin Residence",
+      "files": ["IMG_1.JPG", "IMG_10.JPG", "IMG_11.JPG", "IMG_12.JPG", "IMG_13.JPG", "IMG_14.JPG", "IMG_15.JPG", "IMG_2.JPG", "IMG_3.JPG", "IMG_4.JPG", "IMG_5.JPG", "IMG_6.JPG", "IMG_7.JPG", "IMG_8.JPG", "IMG_9.JPG"]
+    },
+    {
+      "slug": "aviara",
+      "name": "Aviara",
+      "folder": "Aviara",
+      "files": ["Aviara-exterior-13.jpg", "Aviara-exterior-01.JPG", "Aviara-exterior-02.JPG", "IMG_1354.JPG", "IMG_1355.JPG", "IMG_1356.JPG", "IMG_1357.JPG", "IMG_1359.JPG", "IMG_1360.JPG", "IMG_1361.JPG", "IMG_1362.JPG", "IMG_1363.JPG", "IMG_1364.JPG", "IMG_1365.JPG"]
+    },
+    {
+      "slug": "carrera-1",
+      "name": "Carrera 1",
+      "folder": "Carrera 1",
+      "files": ["Carrera Exterior.jpg", "IMG_3299.JPG", "IMG_3300.JPG", "IMG_3301.JPG", "IMG_3302.JPG", "IMG_3303.JPG"]
+    },
+    {
+      "slug": "carrera-2",
+      "name": "Carrera 2",
+      "folder": "Carrera 2",
+      "files": ["Carrera Exterior.jpg", "IMG_3284.JPG", "IMG_3285.JPG", "IMG_3286.JPG", "IMG_3287.JPG", "IMG_3288.JPG", "IMG_3289.JPG", "IMG_3290.JPG", "IMG_3291.JPG", "IMG_3292.JPG", "IMG_3293.JPG", "IMG_3294.JPG"]
+    },
+    {
+      "slug": "charland",
+      "name": "Charland",
+      "folder": "Charland",
+      "files": ["Exterior Charland.jpg", "IMG_1.JPG", "IMG_10.JPG", "IMG_11.JPG", "IMG_2.JPG", "IMG_3.JPG", "IMG_4.JPG", "IMG_5.JPG", "IMG_6.JPG", "IMG_7.JPG", "IMG_8.JPG", "IMG_9.JPG"]
+    },
+    {
+      "slug": "dominion",
+      "name": "Dominion",
+      "folder": "Dominion",
+      "files": ["a dominion exterior.jpg", "Dominion 1.JPG", "Dominion 2.JPG", "Dominion 3.JPG", "Dominion 4.JPG"]
+    },
+    {
+      "slug": "edgemont",
+      "name": "Edgemont",
+      "folder": "Edgemont",
+      "files": ["1 Exterior.jpg", "20170202_092158.jpg", "20170202_092512.jpg", "20170202_092555.jpg", "20170202_092619.jpg", "20170202_094943.jpg", "20170202_095003.jpg", "20170202_095032.jpg", "20170202_095046.jpg", "20170202_101916.jpg", "20170202_102719.jpg", "20170202_103739.jpg", "20170202_103755.jpg", "20170202_105451.jpg", "20170202_111004.jpg", "20170202_111022.jpg", "20170202_111033.jpg", "20170202_111046.jpg", "20170202_111058.jpg", "20170202_111113.jpg", "20170202_111127.jpg", "20170202_111148.jpg", "20170202_111215.jpg", "20170202_111227.jpg", "20170202_111230.jpg", "20170202_111232.jpg", "20170202_112639.jpg", "20170202_113042.jpg"]
+    },
+    {
+      "slug": "elmstone",
+      "name": "Elmstone",
+      "folder": "Elmstone",
+      "files": ["000.jpg", "20211202_081923.jpg", "20211202_081933.jpg", "20211202_081939.jpg", "20211202_081946.jpg", "20211202_081951.jpg", "20211202_081957.jpg"]
+    },
+    {
+      "slug": "gardner",
+      "name": "Gardner",
+      "folder": "Gardner",
+      "files": ["000.jpg", "20200930_120052.jpg", "20200930_120109.jpg", "20200930_120135.jpg", "20200930_120225.jpg", "20200930_120304.jpg", "20200930_120313.jpg", "20200930_120343.jpg"]
+    },
+    {
+      "slug": "hampton-cove",
+      "name": "Hampton Cove",
+      "folder": "Hampton Cove",
+      "files": ["IMG_20170713_155453.jpg", "IMG_20170713_155456.jpg", "IMG_20170713_155504.jpg", "IMG_20170713_155506.jpg", "IMG_20170713_155514.jpg", "IMG_20170713_155517.jpg", "IMG_20170713_155527.jpg", "IMG_20170713_155530.jpg", "IMG_20170713_155543.jpg", "IMG_20170713_155545.jpg", "IMG_20170713_155554.jpg", "IMG_20170713_155557.jpg", "IMG_20170713_155608.jpg", "IMG_20170713_155623.jpg", "IMG_20170713_155638.jpg", "IMG_20170713_155642.jpg", "IMG_20170713_155707.jpg", "IMG_20170713_155714.jpg"]
+    },
+    {
+      "slug": "kensington",
+      "name": "Kensington",
+      "folder": "Kensington",
+      "files": ["exterior kensington.jpg", "IMG_1.JPG", "IMG_2.JPG", "IMG_3.JPG", "IMG_4.JPG", "IMG_5.JPG"]
+    },
+    {
+      "slug": "kingston",
+      "name": "Kingston",
+      "folder": "Kingston",
+      "files": ["A_Kingston_Exterior.jpg", "IMG_1.JPG", "IMG_10.JPG", "IMG_2.JPG", "IMG_3.JPG", "IMG_4.JPG", "IMG_5.JPG", "IMG_6.JPG", "IMG_7.JPG", "IMG_8.JPG", "IMG_9.JPG"]
+    },
+    {
+      "slug": "kiwanis",
+      "name": "Kiwanis",
+      "folder": "Kiwanis",
+      "files": ["Exterior Kiwanis.jpg", "IMG_3295.JPG", "IMG_3296.JPG", "IMG_3297.JPG", "IMG_3298.JPG"]
+    },
+    {
+      "slug": "park-and-metro",
+      "name": "Park and Metro",
+      "folder": "Park and Metro",
+      "files": ["1_modern-luxury.jpg", "20170501_122417.jpg", "20170501_122426.jpg", "20170501_122442.jpg", "20170501_122450.jpg", "20170501_122500.jpg", "20170501_122513.jpg", "20170501_122536.jpg", "20170501_122748.jpg", "20170501_122801.jpg", "20170501_122809.jpg", "20170501_122811.jpg", "20170501_122820.jpg", "20170501_122822.jpg", "20170501_122831.jpg", "20170501_122845.jpg", "20170501_122903.jpg"]
+    },
+    {
+      "slug": "saltaire",
+      "name": "Saltaire",
+      "folder": "Saltaire",
+      "files": ["Exterior Saltaire.jpg", "IMG_1.JPG", "IMG_2.JPG", "IMG_3.JPG", "IMG_4.JPG", "IMG_5.JPG", "IMG_6.JPG", "IMG_7.JPG"]
+    },
+    {
+      "slug": "stanton-house",
+      "name": "Stanton House",
+      "folder": "Stanton House",
+      "files": ["1-cottonwood-initial-rendering-750x403.jpg", "20170413_140337.jpg", "20170413_140403.jpg", "20170413_143710.jpg", "20170413_143728.jpg", "20170413_143733.jpg", "20170413_143742.jpg", "20170413_143750.jpg", "20170413_143800.jpg", "20170413_143812.jpg", "20170413_143822.jpg", "20170413_143834.jpg"]
+    },
+    {
+      "slug": "storybrook",
+      "name": "Storybrook",
+      "folder": "Storybrook",
+      "files": ["Exterior Storybook.jpg", "IMG_1.JPG", "IMG_2.JPG", "IMG_3.JPG", "IMG_4.JPG", "IMG_5.JPG"]
+    },
+    {
+      "slug": "trafalgar",
+      "name": "Trafalgar",
+      "folder": "Trafalgar",
+      "files": ["000.jpg", "20210309_083702.jpg", "20210309_083706.jpg", "20210309_083718.jpg", "20210309_084029.jpg", "20210309_084038.jpg", "20210309_084054.jpg", "20210309_084113.jpg", "20210309_084115.jpg", "20210309_084123.jpg", "20210309_084131.jpg", "20210309_084729.jpg", "20210309_084730.jpg"]
+    },
+    {
+      "slug": "union-park",
+      "name": "Union Park",
+      "folder": "Union Park",
+      "files": ["000.jpg", "20211102_151006.jpg", "20211102_151017.jpg", "20211102_151029.jpg", "20211102_151050.jpg", "20211102_151059.jpg", "20211102_151117.jpg", "20211102_151132.jpg", "20211102_151149.jpg", "20211102_151211.jpg", "20211102_151223.jpg", "20211102_151249.jpg", "20211102_151300.jpg", "20211102_151311.jpg", "20211102_151353.jpg", "20211102_151402.jpg", "20211102_151504.jpg", "20211102_151552.jpg", "20211102_151601.jpg", "20211102_151726.jpg", "20211102_151732.jpg", "20211102_151746.jpg", "20211102_151802.jpg", "20211102_151810.jpg", "20211102_151826.jpg", "20211102_151839.jpg", "20211102_151848.jpg", "20211102_151857.jpg", "20211102_151904.jpg", "20211102_152126.jpg", "20211102_152136.jpg", "20211102_152200.jpg", "20211102_152203.jpg", "20211102_152229.jpg", "20211102_152238.jpg", "20211102_152249.jpg", "20211102_152256.jpg"]
+    },
+    {
+      "slug": "vittorio",
+      "name": "Vittorio",
+      "folder": "Vittorio",
+      "files": ["000.jpg", "20210309_114313.jpg", "20210309_114323.jpg", "20210309_114337.jpg", "20210309_114355.jpg", "20210309_114408.jpg", "20210309_114411.jpg", "20210309_114425.jpg", "20210309_114431.jpg", "20210309_114446.jpg", "20210309_114458.jpg"]
+    },
+    {
+      "slug": "woodcroft",
+      "name": "Woodcroft",
+      "folder": "Woodcroft",
+      "files": ["exterior woodcroft.jpg", "IMG_1.JPG", "IMG_10.JPG", "IMG_11.JPG", "IMG_2.JPG", "IMG_3.JPG", "IMG_4.JPG", "IMG_5.JPG", "IMG_6.JPG", "IMG_7.JPG", "IMG_8.JPG", "IMG_9.JPG"]
+    }
+  ]
+}

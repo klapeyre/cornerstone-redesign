@@ -196,6 +196,20 @@ CDL-11 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
+- **Gallery image pipeline (prep for CDL-17, not wired in yet).** The live
+  cdl1983.ca gallery serves all photos from its own server at
+  `Pictures/Pictures/<Folder>/<file>`; directory listing is off, so the per-
+  project file list was captured from the page's carousel JS into
+  `scripts/gallery-manifest.json` (25 projects, 295 images, `files[0]` = cover,
+  slugs match `content/projects.ts`). `npm run gallery:fetch`
+  (`scripts/fetch-gallery.mjs`, no deps) downloads originals into the
+  git-ignored `.gallery-src/`; `npm run gallery:build`
+  (`scripts/build-gallery-images.mjs`, needs `sharp`) resizes to ≤2000px, writes
+  `public/projects/<slug>/01.jpg…NN.jpg`, and emits
+  `content/gallery-images.generated.ts` (`galleryImages` / `galleryCovers` keyed
+  by slug, each `{ src, width, height }`). Neither script has been run yet;
+  `sharp` was added to devDependencies. CDL-10/CDL-17 wires the generated file
+  into the `Project` type.
 - Tailwind v4 is CSS-first: theme config is `@theme` in `app/globals.css`, not a
   `tailwind.config.ts`. The plan text predates this.
 - Node.js is installed on this machine via Homebrew (`/opt/homebrew/bin/node`).
