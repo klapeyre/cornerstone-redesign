@@ -74,16 +74,16 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 
 ## EPIC 3 — Gallery
 
-**CDL-10 — Project data model**
+**CDL-10 — Project data model** ✅ Complete
 - Structured data source for all 25 projects (name, category/division, thumbnail, full image set) — not hardcoded HTML per project, so adding a project later doesn't mean writing new markup.
 - With Next.js decided (CDL-1), the realistic options are: a local typed data file (e.g. `content/projects.ts` or `.json`, read at build time and rendered via static generation), or a headless CMS (e.g. Sanity, Contentful) fetched through Next.js's data-fetching if a non-technical family member needs to add projects without touching code. Still an open decision — see "Open questions."
 - **AC:** Schema documented; existing 25 project names migrated as entries pending real photos.
 
-**CDL-11 — Gallery grid page**
+**CDL-11 — Gallery grid page** ✅ Complete
 - Responsive grid of project cards driven by CDL-10's data.
 - **AC:** Matches mockup grid; real images swap in as supplied (CDL-17); graceful placeholder state for projects without photos yet.
 
-**CDL-12 — Project detail lightbox**
+**CDL-12 — Project detail lightbox** ✅ Complete
 - Full-screen overlay carousel per project: left/right arrow nav, dot-thumbnail strip, explicit image counter ("3 / 12"), explicit close button. This replaces the current Jssor-based carousel — it's the one interaction being deliberately preserved from the old site, just restyled and (per this ticket) made more usable.
 - **AC:** Keyboard support (arrow keys to navigate, Esc to close); focus trap + aria labels for accessibility; matches mockup visuals; lazy-loads offscreen images.
 - **Note:** Check whether the current site supports keyboard/swipe navigation before calling this "parity" — the review of the old site didn't confirm this either way.
@@ -157,7 +157,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 ## Open questions for the next planning pass
 
 - ~~Tech stack (CDL-1)~~ — resolved: Next.js (App Router) + TypeScript, Tailwind CSS for styling.
-- CMS vs. hardcoded/JSON data for Gallery and Services content, within that Next.js stack (see CDL-10).
+- ~~CMS vs. hardcoded/JSON data for Gallery and Services content, within that Next.js stack (see CDL-10).~~ — resolved (CDL-10): local typed data file (`content/projects.ts` + generated image manifest), no CMS.
 - ~~Mobile nav pattern and breakpoints~~ — resolved (CDL-5): collapse at Tailwind `md` (768px) to a full-screen hamburger overlay; see CLAUDE.md "Responsive".
 - What's actually behind Login (CDL-16).
 - Hosting/deploy target.

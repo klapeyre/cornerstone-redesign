@@ -42,10 +42,20 @@ website (Cornerstone Developments Ltd. + Cornerstone Millwork Inc.).
   by a divider (CDL-3).
 - Placeholders in the mockup (`[ADDRESS]`, `[PHONE]`, `[EMAIL]`, redrawn logo
   marks, placeholder photos) are intentional — don't invent real values.
-- **Comments**: don't add comments that restate what the code already says.
-  Write the code clearly enough — good names, small functions — that it doesn't
-  need narration. Reserve comments for genuinely unclear code: a non-obvious
-  workaround, a subtle constraint, or the "why" behind a surprising choice.
+- **Comments**: default to none. Write the code clearly enough — good names,
+  small functions, expressive types — that it explains itself. A comment is only
+  justified when leaving it out would let someone introduce a bug: a non-obvious
+  workaround, a load-bearing ordering/timing constraint, or a deliberate
+  deviation from what the code appears to do. If a comment describes *what* a
+  value, field, or type is, delete it — the name and type already say it.
+  Specifically, do not:
+  - annotate a type/interface field or other declaration with prose that
+    restates its name and type;
+  - put ticket numbers (CDL-N) in source code;
+  - narrate data-pipeline or lifecycle state ("empty until X is built",
+    "populated by Y") in source — that context belongs in STATUS.md or the plan,
+    not the code.
+  When unsure, leave the comment out.
 - **Responsive** (CDL-5): build mobile-first and verify every page at 375px. The
   one layout breakpoint is Tailwind's default `md` (768px) — at `md`+ the layout
   matches the desktop mockup; below `md` the header's primary nav collapses to a

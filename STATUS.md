@@ -5,9 +5,115 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-09_ (CDL-9)
+_Last updated: 2026-09-10_ (CDL-12)
 
 ## Done
+
+- **CDL-12 — Project detail lightbox.** `app/components/Lightbox.tsx` (client) +
+  `app/components/GalleryGrid.tsx` (client). The Gallery page (`app/gallery/
+  page.tsx`) stays a server component and its `<main>`/intro/`metadata` are
+  unchanged; the grid `<ul>` moved into `GalleryGrid`, which owns the
+  `activeProject` state and renders `<Lightbox>`. Grid cards are now `<button>`s
+  (`aria-label="View photos of <name>"`) that open the overlay; a project with an
+  empty `images` array falls back to the non-interactive placeholder card
+  (`images` is populated for all 25 today — the guard keeps the graceful state).
+  The first card's cover `<Image>` gets `priority` (it's the above-the-fold LCP
+  element — clears a Next.js `loading="eager"` console warning). On `hover` an
+  interactive card gains a 1px accent ring (2px on `focus-visible`) on top of
+  the existing `-translate-y-0.5` lift — a light touch using the theme's
+  reddish-brown accent.
+  `Lightbox` mirrors the mockup's `#lightbox` (`docs/sample_mockup.html`
+  ~77-89 / ~496-516): a `fixed inset-0 z-[600]` panel at
+  `bg-[oklch(9%_0.006_75/0.97)]`, a top bar with the project name +
+  zero-padded counter (`03 / 07`, `aria-live="polite"`) + explicit close button,
+  a stage with flanking circular prev/next arrows and the photo, and a
+  clickable dot strip below (accent = current). No per-photo subtitle — CDL-10
+  dropped category/division and there's no source for one, so the mockup's
+  "Mixed-use residential · Vancouver, BC" line is omitted rather than invented.
+  Reads `projectsBySlug`'s image sets via the `Project` passed down from the
+  page (`content/projects.ts`), so Home/Gallery/Lightbox share one data source.
+  - **Accessibility (AC):** `role="dialog"` + `aria-modal` + `aria-label`;
+    body-scroll lock while open; focus moves into the dialog on open and is
+    restored to the triggering card on close; a `keydown` handler wraps Tab
+    within the dialog (focus trap), maps ArrowLeft/ArrowRight to prev/next
+    (wrapping), and Esc to close. All controls have `aria-label`s; dots carry
+    `aria-current`. Full page-level `inert`/focus-trap hardening is still CDL-22.
+  - **Focus/hover affordances.** The prev/next arrows and the close button
+    (shared `ICON_BUTTON` class) invert to a filled `bg-ink` circle with a
+    `text-on-accent` icon on `hover` and `focus-visible`, so it's obvious
+    they're clickable and where keyboard focus is. Dots grow on
+    `focus-visible`. The dialog container is programmatically focused (for the
+    keydown handler + screen readers) so it carries `outline-none` — otherwise
+    its `fixed inset-0` box drew a focus ring around the whole viewport. When
+    the lightbox closes and focus returns to the originating gallery card, that
+    card shows a deliberate 2px accent `focus-visible` ring (see the grid hover
+    note below) instead of the UA default outline.
+  - **Lazy-loading (AC):** only the current photo and its two neighbours are in
+    the DOM (`Math.abs(i - index) > 1` → not rendered); neighbours render at
+    `opacity-0` so the browser prefetches them for snappy nav, everything else
+    is never requested. Current photo is `priority`, `next/image` `fill` +
+    `object-contain`.
+  - Basic touch-swipe on the stage (>50px horizontal delta) as a mobile
+    affordance; keyboard + arrows remain the primary nav the AC calls for.
+  - `key={activeProject?.slug}` on `<Lightbox>` from `GalleryGrid` resets the
+    carousel to photo 1 per project via remount (avoids a
+    setState-in-effect lint error).
+  - `npm run lint` and `npm run build` pass (`/gallery` still prerenders
+    static). Verified in the browser at desktop width: open from a card, arrow
+    + keyboard nav advance the counter/dot/photo, Esc closes and returns focus
+    to the card (branded accent ring, no viewport-wide outline), and the
+    arrow/close buttons invert on hover. Automation viewport still can't narrow
+    below ~1440px, so the
+    mobile layout (single-column stage, `px-3` gutters, 44px-tall dot hit
+    areas) relies on the verified CDL-5 breakpoint patterns.
+
+- **CDL-11 — Gallery grid page.** `app/gallery/page.tsx` (server component),
+  rendered inside a `flex-1 <main>` so the shared footer stays pinned. Mirrors
+  the mockup's Gallery screen (`docs/sample_mockup.html` lines ~265-299): a
+  `.page-shell` intro block (`Our Work` eyebrow → `text-[34px]` "Project Gallery"
+  → a `max-w-[60ch]` muted lede whose project count reads from
+  `projects.length`, not a literal) over a `.page-shell` grid section
+  (`pt-9`, `pb-14 md:pb-[88px]`). The grid maps `projects` from
+  `content/projects.ts` — the same source Home's `FeaturedWork` reads, no
+  duplicated project data. Each card is an `<article>` at `aspect-[4/3]` with
+  the mockup's caption treatment (`.ph-tag` scrim, `p-[14px] px-4 font-display
+  text-sm`) and a subtle `hover:-translate-y-0.5` lift; every project has a real
+  cover photo now (CDL-10 wired the sets), rendered via `next/image` `fill` +
+  `object-cover` with responsive `sizes`. Projects without a `cover` fall back
+  to the shared `.ph` placeholder (cycling `ph-a…ph-d` by index) with a
+  "Photo coming soon" label — the graceful-placeholder AC. Responsive per CDL-5:
+  `grid-cols-1` below `sm`, `sm:grid-cols-2`, `md:grid-cols-4` (the mockup's
+  `repeat(4,1fr)`), `gap-6` (24px) throughout; column-count reflow is the kind
+  of minor within-component change `sm` is reserved for. Added a static
+  `metadata` export (title/description) for the route. Cards are presentational
+  for now — CDL-12 wires the click to the project-detail lightbox. `npm run
+  lint` and `npm run build` pass (`/gallery` prerenders static); desktop layout
+  verified against the mockup in the browser with the real cover photos loading
+  (automation viewport still can't narrow below ~1440px, so the mobile grid
+  reflow relies on the verified CDL-5 breakpoint patterns).
+
+- **CDL-10 — Project data model.** Formalized the schema in `content/projects.ts`
+  on top of the minimal version CDL-9 introduced. Decisions taken this ticket:
+  - **Local typed data file, no CMS** (resolves the plan's Open question). Content
+    is a fixed set of 25 projects that changes rarely and the images are already
+    committed to the repo, so a headless CMS isn't warranted. Adding a project is
+    a small edit to the `projects` array plus a run of the image scripts below.
+  - **Category/division dropped from scope.** No source data for it exists (not in
+    the live-site scrape, the carousel manifest, or the mockup), and the mockup's
+    gallery is a flat grid of all 25 with no category filter or label — matching
+    today's live site. The field can be re-added later if the client wants it.
+  - `Project` is now `{ slug, name, featured, images: GalleryImage[], cover:
+    GalleryImage | undefined }`. `images`/`cover` are wired from
+    `content/gallery-images.generated.ts` (`galleryImages` / `galleryCovers` keyed
+    by slug) via the `project()` factory, so the 25 entries carry their real photo
+    sets — the live-site gallery images, fetched and resized ≤2000px into
+    `public/projects/<slug>/NN.jpg` (295 images, all 25 projects, committed in
+    `adcb733`). `GalleryImage` (`{ src, width, height }`) is re-exported from
+    `content/projects.ts` so consumers import from one place. Added
+    `projectsBySlug` for the CDL-12 detail route; `featuredProjects` unchanged.
+  - Consumers unchanged: `FeaturedWork.tsx` still reads `featuredProjects` and
+    renders `.ph` placeholders (real photos in the Home/Gallery UI are CDL-17).
+  - `npm run lint` and `npm run build` pass.
 
 - **CDL-9 — Featured work section.** `app/components/FeaturedWork.tsx` (server
   component), rendered by `app/page.tsx` after `<ServicesPreview>`. Mirrors the
@@ -185,14 +291,15 @@ _Last updated: 2026-09-09_ (CDL-9)
 
 ## Next up
 
-- **CDL-10 — Project data model.** Formalize the schema on top of the minimal
-  `content/projects.ts` that CDL-9 introduced: add category/division, thumbnail,
-  and full image set per project, and resolve the CMS-vs-local decision (see the
-  plan's Open questions).
+- **CDL-13 — Services page.** Three category cards (Doors, Mouldings, Millwork)
+  with full item lists as styled chips/tags, replacing the live site's raw
+  bullet HTML. Reuse the shared icons from `app/components/icons/services.tsx`
+  (CDL-8). Item lists and grouping are spelled out in the plan; AC needs client
+  sign-off on the final list.
 
 ## Not started
 
-CDL-11 … CDL-25 — see the plan.
+CDL-14 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
@@ -207,9 +314,12 @@ CDL-11 … CDL-25 — see the plan.
   (`scripts/build-gallery-images.mjs`, needs `sharp`) resizes to ≤2000px, writes
   `public/projects/<slug>/01.jpg…NN.jpg`, and emits
   `content/gallery-images.generated.ts` (`galleryImages` / `galleryCovers` keyed
-  by slug, each `{ src, width, height }`). Neither script has been run yet;
-  `sharp` was added to devDependencies. CDL-10/CDL-17 wires the generated file
-  into the `Project` type.
+  by slug, each `{ src, width, height }`). Both scripts have been run: the
+  optimized set is committed under `public/projects/` (295 images, all 25
+  projects) and the generated file is wired into the `Project` type as of CDL-10.
+  Re-run `npm run gallery:fetch && npm run gallery:build` if the live gallery
+  changes or `scripts/gallery-manifest.json` is regenerated. `sharp` is a
+  devDependency.
 - Tailwind v4 is CSS-first: theme config is `@theme` in `app/globals.css`, not a
   `tailwind.config.ts`. The plan text predates this.
 - Node.js is installed on this machine via Homebrew (`/opt/homebrew/bin/node`).
