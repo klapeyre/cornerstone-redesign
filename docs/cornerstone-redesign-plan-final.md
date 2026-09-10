@@ -74,7 +74,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 
 ## EPIC 3 — Gallery
 
-**CDL-10 — Project data model**
+**CDL-10 — Project data model** ✅ Complete
 - Structured data source for all 25 projects (name, category/division, thumbnail, full image set) — not hardcoded HTML per project, so adding a project later doesn't mean writing new markup.
 - With Next.js decided (CDL-1), the realistic options are: a local typed data file (e.g. `content/projects.ts` or `.json`, read at build time and rendered via static generation), or a headless CMS (e.g. Sanity, Contentful) fetched through Next.js's data-fetching if a non-technical family member needs to add projects without touching code. Still an open decision — see "Open questions."
 - **AC:** Schema documented; existing 25 project names migrated as entries pending real photos.
@@ -157,7 +157,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 ## Open questions for the next planning pass
 
 - ~~Tech stack (CDL-1)~~ — resolved: Next.js (App Router) + TypeScript, Tailwind CSS for styling.
-- CMS vs. hardcoded/JSON data for Gallery and Services content, within that Next.js stack (see CDL-10).
+- ~~CMS vs. hardcoded/JSON data for Gallery and Services content, within that Next.js stack (see CDL-10).~~ — resolved (CDL-10): local typed data file (`content/projects.ts` + generated image manifest), no CMS.
 - ~~Mobile nav pattern and breakpoints~~ — resolved (CDL-5): collapse at Tailwind `md` (768px) to a full-screen hamburger overlay; see CLAUDE.md "Responsive".
 - What's actually behind Login (CDL-16).
 - Hosting/deploy target.

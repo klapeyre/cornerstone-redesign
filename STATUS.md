@@ -5,9 +5,32 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-09_ (CDL-9)
+_Last updated: 2026-09-10_ (CDL-10)
 
 ## Done
+
+- **CDL-10 — Project data model.** Formalized the schema in `content/projects.ts`
+  on top of the minimal version CDL-9 introduced. Decisions taken this ticket:
+  - **Local typed data file, no CMS** (resolves the plan's Open question). Content
+    is a fixed set of 25 projects that changes rarely and the images are already
+    committed to the repo, so a headless CMS isn't warranted. Adding a project is
+    a small edit to the `projects` array plus a run of the image scripts below.
+  - **Category/division dropped from scope.** No source data for it exists (not in
+    the live-site scrape, the carousel manifest, or the mockup), and the mockup's
+    gallery is a flat grid of all 25 with no category filter or label — matching
+    today's live site. The field can be re-added later if the client wants it.
+  - `Project` is now `{ slug, name, featured, images: GalleryImage[], cover:
+    GalleryImage | undefined }`. `images`/`cover` are wired from
+    `content/gallery-images.generated.ts` (`galleryImages` / `galleryCovers` keyed
+    by slug) via the `project()` factory, so the 25 entries carry their real photo
+    sets — the live-site gallery images, fetched and resized ≤2000px into
+    `public/projects/<slug>/NN.jpg` (295 images, all 25 projects, committed in
+    `adcb733`). `GalleryImage` (`{ src, width, height }`) is re-exported from
+    `content/projects.ts` so consumers import from one place. Added
+    `projectsBySlug` for the CDL-12 detail route; `featuredProjects` unchanged.
+  - Consumers unchanged: `FeaturedWork.tsx` still reads `featuredProjects` and
+    renders `.ph` placeholders (real photos in the Home/Gallery UI are CDL-17).
+  - `npm run lint` and `npm run build` pass.
 
 - **CDL-9 — Featured work section.** `app/components/FeaturedWork.tsx` (server
   component), rendered by `app/page.tsx` after `<ServicesPreview>`. Mirrors the
@@ -185,14 +208,16 @@ _Last updated: 2026-09-09_ (CDL-9)
 
 ## Next up
 
-- **CDL-10 — Project data model.** Formalize the schema on top of the minimal
-  `content/projects.ts` that CDL-9 introduced: add category/division, thumbnail,
-  and full image set per project, and resolve the CMS-vs-local decision (see the
-  plan's Open questions).
+- **CDL-11 — Gallery grid page.** Build `/gallery` as a responsive grid of
+  project cards driven by `content/projects.ts` (`projects`), matching the
+  mockup grid (`docs/sample_mockup.html` lines ~262-300): 4-up at `md`+,
+  reflowing per CDL-5. Each card uses `project.cover` (a real photo now) with a
+  graceful `.ph` placeholder when `cover` is undefined. Cards open the CDL-12
+  lightbox.
 
 ## Not started
 
-CDL-11 … CDL-25 — see the plan.
+CDL-12 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
@@ -207,9 +232,12 @@ CDL-11 … CDL-25 — see the plan.
   (`scripts/build-gallery-images.mjs`, needs `sharp`) resizes to ≤2000px, writes
   `public/projects/<slug>/01.jpg…NN.jpg`, and emits
   `content/gallery-images.generated.ts` (`galleryImages` / `galleryCovers` keyed
-  by slug, each `{ src, width, height }`). Neither script has been run yet;
-  `sharp` was added to devDependencies. CDL-10/CDL-17 wires the generated file
-  into the `Project` type.
+  by slug, each `{ src, width, height }`). Both scripts have been run: the
+  optimized set is committed under `public/projects/` (295 images, all 25
+  projects) and the generated file is wired into the `Project` type as of CDL-10.
+  Re-run `npm run gallery:fetch && npm run gallery:build` if the live gallery
+  changes or `scripts/gallery-manifest.json` is regenerated. `sharp` is a
+  devDependency.
 - Tailwind v4 is CSS-first: theme config is `@theme` in `app/globals.css`, not a
   `tailwind.config.ts`. The plan text predates this.
 - Node.js is installed on this machine via Homebrew (`/opt/homebrew/bin/node`).

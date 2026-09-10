@@ -1,15 +1,25 @@
+import {
+  galleryImages,
+  galleryCovers,
+  type GalleryImage,
+} from "./gallery-images.generated";
+
+export type { GalleryImage };
+
 export type Project = {
   slug: string;
   name: string;
   featured: boolean;
-  images: string[];
+  images: GalleryImage[];
+  cover: GalleryImage | undefined;
 };
 
 const project = (name: string, slug: string, featured = false): Project => ({
   name,
   slug,
   featured,
-  images: [],
+  images: galleryImages[slug] ?? [],
+  cover: galleryCovers[slug],
 });
 
 export const projects: Project[] = [
@@ -39,5 +49,8 @@ export const projects: Project[] = [
   project("Vittorio", "vittorio"),
   project("Woodcroft", "woodcroft"),
 ];
+
+export const projectsBySlug: Record<string, Project | undefined> =
+  Object.fromEntries(projects.map((p) => [p.slug, p]));
 
 export const featuredProjects = projects.filter((p) => p.featured);
