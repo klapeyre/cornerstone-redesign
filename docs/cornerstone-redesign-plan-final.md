@@ -79,7 +79,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 - With Next.js decided (CDL-1), the realistic options are: a local typed data file (e.g. `content/projects.ts` or `.json`, read at build time and rendered via static generation), or a headless CMS (e.g. Sanity, Contentful) fetched through Next.js's data-fetching if a non-technical family member needs to add projects without touching code. Still an open decision — see "Open questions."
 - **AC:** Schema documented; existing 25 project names migrated as entries pending real photos.
 
-**CDL-11 — Gallery grid page**
+**CDL-11 — Gallery grid page** ✅ Complete
 - Responsive grid of project cards driven by CDL-10's data.
 - **AC:** Matches mockup grid; real images swap in as supplied (CDL-17); graceful placeholder state for projects without photos yet.
 

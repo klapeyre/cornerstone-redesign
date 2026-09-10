@@ -5,9 +5,34 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-10_ (CDL-10)
+_Last updated: 2026-09-10_ (CDL-11)
 
 ## Done
+
+- **CDL-11 — Gallery grid page.** `app/gallery/page.tsx` (server component),
+  rendered inside a `flex-1 <main>` so the shared footer stays pinned. Mirrors
+  the mockup's Gallery screen (`docs/sample_mockup.html` lines ~265-299): a
+  `.page-shell` intro block (`Our Work` eyebrow → `text-[34px]` "Project Gallery"
+  → a `max-w-[60ch]` muted lede whose project count reads from
+  `projects.length`, not a literal) over a `.page-shell` grid section
+  (`pt-9`, `pb-14 md:pb-[88px]`). The grid maps `projects` from
+  `content/projects.ts` — the same source Home's `FeaturedWork` reads, no
+  duplicated project data. Each card is an `<article>` at `aspect-[4/3]` with
+  the mockup's caption treatment (`.ph-tag` scrim, `p-[14px] px-4 font-display
+  text-sm`) and a subtle `hover:-translate-y-0.5` lift; every project has a real
+  cover photo now (CDL-10 wired the sets), rendered via `next/image` `fill` +
+  `object-cover` with responsive `sizes`. Projects without a `cover` fall back
+  to the shared `.ph` placeholder (cycling `ph-a…ph-d` by index) with a
+  "Photo coming soon" label — the graceful-placeholder AC. Responsive per CDL-5:
+  `grid-cols-1` below `sm`, `sm:grid-cols-2`, `md:grid-cols-4` (the mockup's
+  `repeat(4,1fr)`), `gap-6` (24px) throughout; column-count reflow is the kind
+  of minor within-component change `sm` is reserved for. Added a static
+  `metadata` export (title/description) for the route. Cards are presentational
+  for now — CDL-12 wires the click to the project-detail lightbox. `npm run
+  lint` and `npm run build` pass (`/gallery` prerenders static); desktop layout
+  verified against the mockup in the browser with the real cover photos loading
+  (automation viewport still can't narrow below ~1440px, so the mobile grid
+  reflow relies on the verified CDL-5 breakpoint patterns).
 
 - **CDL-10 — Project data model.** Formalized the schema in `content/projects.ts`
   on top of the minimal version CDL-9 introduced. Decisions taken this ticket:
@@ -208,16 +233,16 @@ _Last updated: 2026-09-10_ (CDL-10)
 
 ## Next up
 
-- **CDL-11 — Gallery grid page.** Build `/gallery` as a responsive grid of
-  project cards driven by `content/projects.ts` (`projects`), matching the
-  mockup grid (`docs/sample_mockup.html` lines ~262-300): 4-up at `md`+,
-  reflowing per CDL-5. Each card uses `project.cover` (a real photo now) with a
-  graceful `.ph` placeholder when `cover` is undefined. Cards open the CDL-12
-  lightbox.
+- **CDL-12 — Project detail lightbox.** Full-screen overlay carousel per
+  project, opened from the CDL-11 gallery cards: left/right arrow nav,
+  dot-thumbnail strip, explicit image counter, explicit close button, keyboard
+  support (arrows + Esc), focus trap + aria labels, lazy-loaded offscreen
+  images. Reads image sets from `content/projects.ts` (`projectsBySlug`).
+  Replaces the old Jssor carousel — see the plan for the parity note.
 
 ## Not started
 
-CDL-12 … CDL-25 — see the plan.
+CDL-13 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
