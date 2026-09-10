@@ -5,9 +5,98 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-07_
+_Last updated: 2026-09-09_ (CDL-9)
 
 ## Done
+
+- **CDL-9 — Featured work section.** `app/components/FeaturedWork.tsx` (server
+  component), rendered by `app/page.tsx` after `<ServicesPreview>`. Mirrors the
+  mockup's "Recent Work" strip (`docs/sample_mockup.html` lines ~196-206): a
+  `.page-shell` section (`py-14 md:pt-[72px] md:pb-[88px]`) with a
+  baseline-aligned head (`text-[28px]` "Recent Work" + a `text-[13px]
+  font-semibold` "View full gallery →" link to `/gallery`) over a three-up grid
+  (`grid gap-6 md:grid-cols-3`, single-column stack below `md` per CDL-5). Each
+  card is a `next/link` to `/gallery` styled as a `.ph` placeholder
+  (`aspect-[4/3] rounded-xs`) with a `.ph-tag` caption in the display font — real
+  photos land in CDL-17. Gradient variety uses the mockup's `.ph-a … .ph-d`
+  classes, cycled by index; `.ph-b/.ph-c/.ph-d` were added to `app/globals.css`
+  (`@layer components`, next to `.ph`) 1:1 with the mockup — `.ph-a` is the
+  existing default.
+  - **Project data source (minimal, pending CDL-10).** New `content/projects.ts`
+    exports a typed `Project` (`slug`, `name`, `featured`, `images: string[]`),
+    the `projects` array (all 25 mockup gallery names, in mockup order, with
+    stable kebab-case slugs for the CDL-12 detail route), and
+    `featuredProjects` (the three the mockup's Recent Work shows — Alexandra
+    Court Clubhouse, Astoria, Kensington — flagged `featured: true`).
+    FeaturedWork reads `featuredProjects` from here, so CDL-11's Gallery grid
+    reads the same file — no duplicated project data, satisfying the CDL-9 AC.
+    CDL-10 still owns the full schema (category/division, thumbnails, full image
+    sets) and the CMS-vs-local decision; `images` is an empty array on every
+    entry until CDL-17.
+  - `npm run lint` and `npm run build` pass; desktop layout verified against the
+    mockup in the browser (automation viewport still can't narrow below ~1440px,
+    so the mobile stack relies on the verified CDL-5 breakpoint patterns).
+
+- **CDL-8 — Services preview section.** `app/components/ServicesPreview.tsx`
+  (server component — static content only), rendered by `app/page.tsx` after
+  `<Stats>`. Mirrors the mockup's "What We Do" section
+  (`docs/sample_mockup.html` lines ~172-193): a `.page-shell` section with a
+  baseline-aligned head (`text-[28px]` "What We Do" + a `text-[13px] font-semibold`
+  "View all services →" link to `/services`) over a three-up card grid. Each card
+  is a `next/link` to `/services` styled `border border-line bg-card p-7` with an
+  accent category icon, a `text-ink` `h3` (the `text-ink` utility is needed so the
+  heading doesn't inherit the global link-accent colour from wrapping the card in
+  an anchor), and a `text-muted` blurb — copy taken verbatim from the mockup.
+  Category icons live in the new shared `app/components/icons/services.tsx`
+  (`DoorsIcon` / `MouldingsIcon` / `MillworkIcon`, `currentColor`-based, sized via
+  props like `icons/logos.tsx`) so CDL-13's Services page reuses them rather than
+  redrawing — satisfying the AC. Responsive per CDL-5: single-column stack with
+  `px-6` below `md`, the mockup's `md:grid-cols-3` row with `px-10` at `md`+;
+  vertical rhythm follows the Hero/Stats idiom (`py-14` → `md:pt-[72px] md:pb-2`).
+  `npm run lint` and `npm run build` pass; desktop layout verified against the
+  mockup in the browser (automation viewport still can't narrow below ~1440px, so
+  the mobile reflow relies on the verified CDL-5 breakpoint patterns).
+
+- **CDL-7 — Stats bar.** `app/components/Stats.tsx` (server component — static
+  content only), rendered by `app/page.tsx` immediately after `<Hero>`. Mirrors
+  the mockup's recessed stats band (`docs/sample_mockup.html` lines ~151-170): a
+  `bg-alt` section with `border-y border-line` (full-bleed) wrapping a
+  `.page-shell` grid (see the ad-hoc content-width note below) of four centered
+  cells, each a `font-display text-[34px] text-accent` number over a
+  `text-xs uppercase tracking-[0.06em] text-muted` label. Data is a local `stats`
+  array. The AC's open question is resolved in favour of auto-calculating: a
+  `FOUNDED_YEAR = 1983` const drives `yearsInBusiness = new Date().getFullYear() -
+  FOUNDED_YEAR` (43 as of 2026, matching the mockup) so the credibility band never
+  goes stale; the remaining values are literals — 25 completed projects (CDL-10's
+  count), 2 divisions, 3 service categories (CDL-13's Doors/Mouldings/Millwork).
+  Responsive per the CDL-5 convention: `grid-cols-2` with `px-6` below `md`
+  (2×2 layout, inter-cell dividers via `max-md:[&:nth-child(2n+1)]:border-r` +
+  `max-md:[&:nth-child(n+3)]:border-t`), `md:grid-cols-4` with `px-10` at `md`+
+  (the mockup's single row, `md:border-r` on every cell and
+  `md:[&:last-child]:border-r-0` to drop the trailing divider). `npm run lint`
+  and `npm run build` pass; desktop layout verified against the mockup in the
+  browser (automation viewport still can't be narrowed below ~1440px, so the
+  mobile reflow relies on the verified CDL-5 breakpoint patterns).
+
+- **CDL-6 — Hero section.** `app/components/Hero.tsx` (server component — static
+  content only), rendered by `app/page.tsx` inside a `flex-1 <main>` so the
+  shared footer stays pinned to the bottom. Mirrors the mockup hero
+  (`docs/sample_mockup.html` lines ~132-149): left column is the `Since 1983`
+  eyebrow, a `Custom construction & millwork, built to last.` display headline, a
+  muted `max-w-[46ch]` subhead, and the two CTAs — `View Our Work` → `/gallery`
+  (`.btn .btn-primary`) and `Our Services` → `/services` (`.btn .btn-outline`),
+  both `next/link`. Right column is a captioned photo placeholder using the new
+  shared `.ph` / `.ph-label` / `.ph-tag` component classes added to
+  `app/globals.css` (the CDL-2 note deferred these to the tickets that need them;
+  the gallery grid in CDL-11 reuses `.ph`). Responsive per the CDL-5 convention:
+  single-column stack with `px-6` below `md`, two-column grid (`md:grid-cols-2`,
+  64px gap) with `px-10` at `md`+; the CTA row is `flex-col sm:flex-row` and the
+  headline steps `text-[34px]` → `md:text-[44px]`. Hero copy and the featured
+  project ("5 Points · Mixed-use residential · Vancouver, BC") stay as mockup
+  placeholders pending client sign-off and real photography (CDL-17).
+  `npm run lint` and `npm run build` pass; desktop layout verified against the
+  mockup in the browser (the automation viewport could not be narrowed to 375px,
+  so the mobile reflow relies on the already-verified CDL-5 breakpoint patterns).
 
 - **CDL-5 — Responsive/mobile layout pass.** One layout breakpoint: Tailwind's
   default `md` (768px). At `md`+ the shared chrome matches the desktop mockup;
@@ -24,8 +113,9 @@ _Last updated: 2026-09-07_
   brand row and contact row stack column-wise below `sm` (640px) and the whole
   foot-top goes column below `md`; the foot-bottom copyright/login row stacks
   below `sm`. Page horizontal padding is `px-6` (24px) below `md`, `px-10`
-  (40px) at `md`+ — the footer keeps its existing doubled desktop inset
-  (`px-10` on `<footer>` + `md:px-10` on the inner max-width wrappers). Breakpoint
+  (40px) at `md`+, now applied through the shared `.page-shell` utility (see the
+  ad-hoc content-width note below), which also removed the footer's former
+  doubled desktop inset. Breakpoint
   system documented in CLAUDE.md ("Responsive" bullet) as the convention the
   later page tickets build against; the plan's "Mobile nav pattern and
   breakpoints" open question is marked resolved. Per-page stacking/grid reflow
@@ -95,14 +185,42 @@ _Last updated: 2026-09-07_
 
 ## Next up
 
-- **CDL-6 — Hero section.**
+- **CDL-10 — Project data model.** Formalize the schema on top of the minimal
+  `content/projects.ts` that CDL-9 introduced: add category/division, thumbnail,
+  and full image set per project, and resolve the CMS-vs-local decision (see the
+  plan's Open questions).
 
 ## Not started
 
-CDL-7 … CDL-25 — see the plan.
+CDL-11 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
+- **Gallery image pipeline (prep for CDL-17, not wired in yet).** The live
+  cdl1983.ca gallery serves all photos from its own server at
+  `Pictures/Pictures/<Folder>/<file>`; directory listing is off, so the per-
+  project file list was captured from the page's carousel JS into
+  `scripts/gallery-manifest.json` (25 projects, 295 images, `files[0]` = cover,
+  slugs match `content/projects.ts`). `npm run gallery:fetch`
+  (`scripts/fetch-gallery.mjs`, no deps) downloads originals into the
+  git-ignored `.gallery-src/`; `npm run gallery:build`
+  (`scripts/build-gallery-images.mjs`, needs `sharp`) resizes to ≤2000px, writes
+  `public/projects/<slug>/01.jpg…NN.jpg`, and emits
+  `content/gallery-images.generated.ts` (`galleryImages` / `galleryCovers` keyed
+  by slug, each `{ src, width, height }`). Neither script has been run yet;
+  `sharp` was added to devDependencies. CDL-10/CDL-17 wires the generated file
+  into the `Project` type.
 - Tailwind v4 is CSS-first: theme config is `@theme` in `app/globals.css`, not a
   `tailwind.config.ts`. The plan text predates this.
 - Node.js is installed on this machine via Homebrew (`/opt/homebrew/bin/node`).
+- **Ad-hoc content-width change (outside the plan).** Header, Footer, Hero, and
+  Stats now share one centered content column via the `.page-shell` utility in
+  `app/globals.css` (`margin-inline: auto`, `max-width: var(--container-page)`,
+  and the `px-6` → `md:px-10` gutters). `--container-page` is `1280px` — wider
+  than the mockup's `1200px` `.container` so the layout doesn't letterbox on
+  larger displays; change that one token to retune it. This deliberately departs
+  from the mockup in two ways: the mockup's header has no width cap at all, and
+  its footer nested `.container` inside `<footer>`'s own 40px padding for a
+  doubled inset. Both are gone so every section's left/right content edges line
+  up. Full-bleed backgrounds (header bottom border, stats `border-y` band,
+  footer `--floor` panel) stay on the outer element and still span the viewport.

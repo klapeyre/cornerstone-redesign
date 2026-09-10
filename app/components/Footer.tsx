@@ -3,8 +3,8 @@ import { DiamondLogo, HammerLogo } from "./icons/logos";
 
 export default function Footer() {
   return (
-    <footer className="bg-floor px-6 pt-10 pb-8 text-floor-ink md:px-10 md:pt-[52px]">
-      <div className="mx-auto flex max-w-[1200px] flex-col gap-6 border-b border-floor-line pb-8 md:flex-row md:justify-between md:gap-10 md:px-10">
+    <footer className="bg-floor pt-10 pb-8 text-floor-ink md:pt-[52px]">
+      <div className="page-shell flex flex-col gap-6 border-b border-floor-line pb-8 md:flex-row md:justify-between md:gap-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:gap-7">
           <div className="flex items-center gap-[9px]">
             <HammerLogo className="h-[22px] w-[22px] text-floor-ink" />
@@ -25,7 +25,7 @@ export default function Footer() {
           <span>[EMAIL]</span>
         </div>
       </div>
-      <div className="mx-auto flex max-w-[1200px] flex-col gap-3 pt-5 text-xs text-floor-muted sm:flex-row sm:justify-between md:px-10">
+      <div className="page-shell flex flex-col gap-3 pt-5 text-xs text-floor-muted sm:flex-row sm:justify-between">
         <span>
           &copy; 2026 Cornerstone Developments Ltd. &amp; Cornerstone Millwork
           Inc.

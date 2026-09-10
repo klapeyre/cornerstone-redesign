@@ -50,19 +50,23 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 
 ## EPIC 2 — Home Page
 
-**CDL-6 — Hero section**
+**CDL-6 — Hero section** ✅ Complete
 - Headline + subhead + two CTAs ("View Our Work", "Our Services") + featured project image with caption overlay.
 - **AC:** Matches mockup layout; final copy approved by client (mockup copy is a draft); CTAs wired to Gallery/Services.
+- Landed as `app/components/Hero.tsx`, rendered by `app/page.tsx`. CTAs are
+  `next/link`s to `/gallery` and `/services`. Two-column grid at `md`+, stacked
+  below (CDL-5 convention). Copy and the featured project ("5 Points") remain
+  mockup placeholders pending client sign-off / real photography (CDL-17).
 
-**CDL-7 — Stats bar**
+**CDL-7 — Stats bar** ✅ Complete
 - Four-stat credibility band: years in business, completed projects, divisions, service categories.
 - **AC:** Values sourced from real data (confirm whether "years in business" should auto-calculate from 1983); responsive stacking on mobile.
 
-**CDL-8 — Services preview section**
+**CDL-8 — Services preview section** ✅ Complete
 - Three category cards (Doors / Mouldings / Millwork) linking to the full Services page.
 - **AC:** Matches mockup; icons shared with CDL-13, not redrawn twice.
 
-**CDL-9 — Featured work section**
+**CDL-9 — Featured work section** ✅ Complete
 - Three-project preview strip linking to the Gallery.
 - **AC:** Pulls from the same project data source as CDL-10/CDL-11 — no duplicated project data between Home and Gallery.
 
