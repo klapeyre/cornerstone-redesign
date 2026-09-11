@@ -92,14 +92,14 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 
 ## EPIC 4 — Services
 
-**CDL-13 — Services page**
+**CDL-13 — Services page** ✅ Complete
 - Three category cards (Doors, Mouldings, Millwork) with full item lists as styled chips/tags — replacing the current raw, unstyled bullet HTML (the page that "breaks styling" on the live site).
 - **AC:** Content below is present and correctly grouped; responsive chip wrapping.
   - Doors: Entry Doors, Patio Doors, Interior Doors, Bifold Doors, Bipass Doors, Steel Doors, Custom Doors, Modoporte Doors
   - Mouldings: Door/Window/Bifold Casing, Baseboard, Crown Moulding, Wall Capping, Window Sills, Hand Railing
   - Millwork: Fireplace Mantels, Cabinets, Shelving, Wainscotting, Columns, Custom Items
 
-**CDL-14 — Confirm services content is current**
+**CDL-14 — Confirm services content is current** ✅ Complete
 - Verify the item list above with the client — it was scraped from the live site and may be stale or incomplete.
 - **AC:** Client sign-off on the final list before CDL-13 is considered done.
 

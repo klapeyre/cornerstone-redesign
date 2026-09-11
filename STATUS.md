@@ -5,9 +5,14 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-11_ (CDL-13)
+_Last updated: 2026-09-11_ (CDL-14)
 
 ## Done
+
+- **CDL-14 — Confirm services content is current.** Client confirmed the
+  CDL-13 item list (Doors/Mouldings/Millwork) is accurate as implemented — no
+  content changes needed. Closes the sign-off gate CDL-13's own entry below
+  was waiting on; both tickets are now checked off in the plan.
 
 - **CDL-13 — Services page.** `app/services/page.tsx` (server component —
   static content only), routed at `/services` (already wired in `Header`'s
@@ -41,11 +46,6 @@ _Last updated: 2026-09-11_ (CDL-13)
     375px screenshot this session.
   - **Content grouping (AC):** all three categories present with the exact
     item lists from the plan, correctly grouped under their category heading.
-  - **Not yet checked off in the plan.** CDL-14 ties CDL-13's "done" status to
-    client sign-off on the item list (`Client sign-off on the final list
-    before CDL-13 is considered done`) — implementation is complete and
-    matches the plan's current content, but the plan checkbox is left
-    unmarked until CDL-14 closes that loop.
   - `npm run lint` and `npm run build` pass (`/services` prerenders static);
     desktop layout verified against the mockup in the browser (card
     backgrounds, chip styling, icon/heading pairing, and spacing all match).
@@ -332,13 +332,12 @@ _Last updated: 2026-09-11_ (CDL-13)
 
 ## Next up
 
-- **CDL-14 — Confirm services content is current.** Verify the CDL-13 item
-  list with the client (it was scraped from the live site and may be stale);
-  once signed off, check off CDL-13 in the plan.
+- **CDL-15 — Login page UI (stub only).** Recreate the username / password /
+  company-select form matching the mockup style, EPIC 5. No backend wired.
 
 ## Not started
 
-CDL-15 … CDL-25 — see the plan.
+CDL-16 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
