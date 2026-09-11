@@ -107,7 +107,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 
 ## EPIC 5 — Login / Client Portal
 
-**CDL-15 — Login page UI (stub only)**
+**CDL-15 — Login page UI (stub only)** ✅ Complete
 - Recreate the username / password / company-select form matching the mockup style. No backend wired.
 - **AC:** Visually matches mockup; form does not submit anywhere until CDL-16 is resolved.
 

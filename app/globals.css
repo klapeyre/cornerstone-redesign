@@ -154,4 +154,29 @@
     font-size: 13px;
     color: var(--color-ink);
   }
+
+  .field-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .field {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background: var(--color-card);
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-ink);
+  }
+
+  select.field {
+    color-scheme: dark;
+  }
 }

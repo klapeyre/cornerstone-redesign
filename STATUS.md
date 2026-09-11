@@ -5,9 +5,40 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-11_ (CDL-14)
+_Last updated: 2026-09-11_ (CDL-15)
 
 ## Done
+
+- **CDL-15 — Login page UI (stub only).** `app/login/page.tsx` (server
+  component, static `metadata`) + `app/components/LoginForm.tsx` (client
+  component — needs an `onSubmit` handler). Mirrors the mockup's Login screen
+  (`docs/sample_mockup.html` lines ~441-493): a `.page-shell` section
+  (`flex justify-center`, `py-14 md:py-24`) centers a `max-w-[380px]` column —
+  a "Client & Trade Login" heading + muted subhead, a `border border-line
+  bg-card p-8` form card (Username / Password text/password inputs, a
+  Company `<select>` with Developments/Millwork options, a full-width `.btn
+  .btn-primary` submit), and a "← Back to site" link home. Reuses the site's
+  shared `Header`/`Footer` from `app/layout.tsx` rather than the mockup's
+  standalone mini-header/footer — those only exist because the mockup is a
+  single-file multi-screen prototype; the real app already chromes every
+  route the same way, and `Header`'s `Client Login` link already pointed at
+  `/login` since CDL-3.
+  - **Stub, no backend (AC):** `LoginForm`'s `onSubmit` just calls
+    `event.preventDefault()` — the form has no `action`/submit target of any
+    kind until CDL-16 decides what's actually behind it.
+  - **New shared field styles.** Added `.field`/`.field-label` component
+    classes to `app/globals.css` (`@layer components`, next to `.chip`), 1:1
+    with the mockup's `.field`/`label` rules (13px/14px padding, `--line`
+    border, `--card` background, 2px radius; label is a 12px uppercase muted
+    caption) — the first ticket needing form-field styling, so nothing
+    existed to reuse yet. `select.field { color-scheme: dark }` keeps the
+    native dropdown chrome dark instead of a light-mode popup.
+  - `npm run lint` and `npm run build` pass; desktop layout verified against
+    the mockup in the browser (card, fields, and button all match). The
+    automation viewport still can't be resized below its fixed size in this
+    session, so the sub-`md` reflow relies on the same `page-shell` +
+    `w-full max-w-[380px]` pattern already verified on other pages rather
+    than a direct 375px screenshot.
 
 - **CDL-14 — Confirm services content is current.** Client confirmed the
   CDL-13 item list (Doors/Mouldings/Millwork) is accurate as implemented — no
@@ -332,12 +363,13 @@ _Last updated: 2026-09-11_ (CDL-14)
 
 ## Next up
 
-- **CDL-15 — Login page UI (stub only).** Recreate the username / password /
-  company-select form matching the mockup style, EPIC 5. No backend wired.
+- **CDL-16 — Scope what's actually behind Login.** Find out from the client
+  what the current login gates and decide whether to rebuild, replace, or
+  drop it, EPIC 5.
 
 ## Not started
 
-CDL-16 … CDL-25 — see the plan.
+CDL-17 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
