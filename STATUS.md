@@ -5,9 +5,50 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-10_ (CDL-12)
+_Last updated: 2026-09-11_ (CDL-13)
 
 ## Done
+
+- **CDL-13 — Services page.** `app/services/page.tsx` (server component —
+  static content only), routed at `/services` (already wired in `Header`'s
+  `NAV_LINKS`). Mirrors the mockup's Services screen (`docs/sample_mockup.html`
+  lines ~328-413): a `.page-shell` intro block (`Capabilities` eyebrow →
+  `text-[34px]` "Services" → a `max-w-[60ch]` muted lede) over a `.page-shell`
+  column (`flex flex-col gap-6`) of three category cards, one per
+  Doors/Mouldings/Millwork. Each card is `border border-line bg-card p-8`,
+  laid out `md:grid-cols-[220px_1fr]` (mockup's `220px 1fr`) with a stacked
+  single column below `md` per CDL-5; the left side pairs the category's
+  shared icon (`app/components/icons/services.tsx` — `DoorsIcon`/
+  `MouldingsIcon`/`MillworkIcon`, already built for CDL-8's Services preview)
+  with a `text-xl` heading, and the right side is a `flex flex-wrap gap-2.5`
+  strip of chips, one per item. Item lists and grouping match the plan's
+  ticket text verbatim (8 door items, 6 moulding items, 6 millwork items).
+  Category/item data is a local `categories` array in the page file — no
+  shared source needed since, unlike the gallery projects, nothing else in
+  the app renders this same list.
+  - **Styled chips (AC).** Added a `.chip` component class to
+    `app/globals.css` (`@layer components`, next to `.btn`/`.ph`), 1:1 with
+    the mockup's `.chip` rule (`padding:7px 14px; background:var(--bg);
+    border:1px solid var(--line); font-size:13px; border-radius:2px`) — this
+    was one of the utility classes CDL-2 explicitly deferred to this ticket.
+    Replaces the live site's raw unstyled bullet list.
+  - **Responsive chip wrapping (AC):** `flex-wrap` on the chip row, verified
+    at desktop width in the browser — chips wrap onto additional lines within
+    each card as the row fills. Card layout follows the CDL-5 convention
+    (stacked below `md`, the mockup's two-column row at `md`+); automation
+    viewport still can't narrow below ~1440px, so the sub-`md` stacking
+    relies on the verified CDL-5 breakpoint patterns rather than a direct
+    375px screenshot this session.
+  - **Content grouping (AC):** all three categories present with the exact
+    item lists from the plan, correctly grouped under their category heading.
+  - **Not yet checked off in the plan.** CDL-14 ties CDL-13's "done" status to
+    client sign-off on the item list (`Client sign-off on the final list
+    before CDL-13 is considered done`) — implementation is complete and
+    matches the plan's current content, but the plan checkbox is left
+    unmarked until CDL-14 closes that loop.
+  - `npm run lint` and `npm run build` pass (`/services` prerenders static);
+    desktop layout verified against the mockup in the browser (card
+    backgrounds, chip styling, icon/heading pairing, and spacing all match).
 
 - **CDL-12 — Project detail lightbox.** `app/components/Lightbox.tsx` (client) +
   `app/components/GalleryGrid.tsx` (client). The Gallery page (`app/gallery/
@@ -291,15 +332,13 @@ _Last updated: 2026-09-10_ (CDL-12)
 
 ## Next up
 
-- **CDL-13 — Services page.** Three category cards (Doors, Mouldings, Millwork)
-  with full item lists as styled chips/tags, replacing the live site's raw
-  bullet HTML. Reuse the shared icons from `app/components/icons/services.tsx`
-  (CDL-8). Item lists and grouping are spelled out in the plan; AC needs client
-  sign-off on the final list.
+- **CDL-14 — Confirm services content is current.** Verify the CDL-13 item
+  list with the client (it was scraped from the live site and may be stale);
+  once signed off, check off CDL-13 in the plan.
 
 ## Not started
 
-CDL-14 … CDL-25 — see the plan.
+CDL-15 … CDL-25 — see the plan.
 
 ## Notes carried forward
 
