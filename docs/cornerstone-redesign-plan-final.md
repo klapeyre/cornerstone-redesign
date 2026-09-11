@@ -119,7 +119,7 @@ A modernized rebuild of the two-brand Cornerstone site (Cornerstone Developments
 
 ## EPIC 6 — Content & Assets
 
-**CDL-17 — Real project photography**
+**CDL-17 — Real project photography** ✅ Complete
 - Replace all placeholder image blocks with real photos for the 25 gallery projects plus hero/featured images.
 - **AC:** Images optimized (modern formats, responsive srcset); each project has at least one image, ideally a full set for the lightbox.
 

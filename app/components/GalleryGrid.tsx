@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
 import type { Project } from "@/content/projects";
 import Lightbox from "./Lightbox";
 
@@ -9,10 +10,22 @@ const tones = ["ph-a", "ph-b", "ph-c", "ph-d"];
 
 type GalleryGridProps = {
   projects: Project[];
+  initialProject?: Project | null;
 };
 
-export default function GalleryGrid({ projects }: GalleryGridProps) {
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
+export default function GalleryGrid({
+  projects,
+  initialProject = null,
+}: GalleryGridProps) {
+  const router = useRouter();
+  const [activeProject, setActiveProject] = useState(initialProject);
+
+  const closeLightbox = useCallback(() => {
+    setActiveProject(null);
+    if (window.location.search) {
+      router.replace("/gallery", { scroll: false });
+    }
+  }, [router]);
 
   return (
     <>
@@ -65,7 +78,7 @@ export default function GalleryGrid({ projects }: GalleryGridProps) {
       <Lightbox
         key={activeProject?.slug ?? "closed"}
         project={activeProject}
-        onClose={() => setActiveProject(null)}
+        onClose={closeLightbox}
       />
     </>
   );
