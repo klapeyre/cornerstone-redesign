@@ -144,4 +144,14 @@
     color: oklch(100% 0 0);
     background: linear-gradient(0deg, oklch(8% 0.008 75 / 0.78), transparent);
   }
+
+  .chip {
+    display: inline-block;
+    padding: 7px 14px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: var(--color-ink);
+  }
 }
