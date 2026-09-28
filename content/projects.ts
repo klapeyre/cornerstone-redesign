@@ -14,13 +14,23 @@ export type Project = {
   cover: GalleryImage | undefined;
 };
 
-const project = (name: string, slug: string, featured = false): Project => ({
-  name,
-  slug,
-  featured,
-  images: galleryImages[slug] ?? [],
-  cover: galleryCovers[slug],
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+const withBasePath = (image: GalleryImage): GalleryImage => ({
+  ...image,
+  src: `${BASE_PATH}${image.src}`,
 });
+
+const project = (name: string, slug: string, featured = false): Project => {
+  const cover = galleryCovers[slug];
+  return {
+    name,
+    slug,
+    featured,
+    images: (galleryImages[slug] ?? []).map(withBasePath),
+    cover: cover && withBasePath(cover),
+  };
+};
 
 export const projects: Project[] = [
   project("5 Points", "5-points"),
