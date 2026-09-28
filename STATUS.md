@@ -5,9 +5,30 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-11_ (CDL-17)
+_Last updated: 2026-09-28_ (CDL-17)
 
 ## Done
+
+- **Ad-hoc: temporary password gate for the GitHub Pages demo host (outside
+  the plan).** `app/components/AccessGate.tsx` (client component) wraps
+  `Header`/`children`/`Footer` in `app/layout.tsx`, blocking the entire app —
+  any route, including deep links — behind a full-screen password form until
+  cleared. The password is hardcoded as a base64 string and compared via
+  `btoa(input) === PASSWORD_BASE64`; this is a soft gate to keep casual
+  visitors out of a temporary preview link, not real access control (the
+  static HTML is still present in the page source pre-unlock). On success, an
+  expiry timestamp (`Date.now() + 1h`) is written to `localStorage`;
+  `useSyncExternalStore` reads it back (subscribed to `storage`/a custom
+  `cornerstone-gate-changed` event, plus a 30s interval) so the gate
+  re-locks on its own once the hour elapses, without needing a reload. Styled
+  with the same `.field`/`.field-label`/`.btn.btn-primary` classes as
+  `LoginForm`, matching the mockup's dark theme. Remove `AccessGate` (and its
+  import/usage in `app/layout.tsx`) once the temporary hosting period ends.
+  - `npm run lint` and `npm run build` pass; verified in the browser — a
+    direct navigation to `/services` and `/gallery` shows the gate first, an
+    incorrect password shows an inline error, and the correct password
+    reveals the originally requested page and stays unlocked across
+    navigations.
 
 - **Ad-hoc: deep-link Home's Recent Work cards into the Gallery lightbox
   (outside the plan).** `FeaturedWork`'s three cards now link to
