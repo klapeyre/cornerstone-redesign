@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { Project } from "@/content/projects";
 import Lightbox from "./Lightbox";
 
@@ -10,15 +10,21 @@ const tones = ["ph-a", "ph-b", "ph-c", "ph-d"];
 
 type GalleryGridProps = {
   projects: Project[];
-  initialProject?: Project | null;
 };
 
-export default function GalleryGrid({
-  projects,
-  initialProject = null,
-}: GalleryGridProps) {
+export default function GalleryGrid({ projects }: GalleryGridProps) {
   const router = useRouter();
-  const [activeProject, setActiveProject] = useState(initialProject);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
+
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get("project");
+    const match = projects.find(
+      (p) => p.slug === slug && p.images.length > 0,
+    );
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (match) setActiveProject(match);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const closeLightbox = useCallback(() => {
     setActiveProject(null);
