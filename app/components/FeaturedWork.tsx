@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { featuredProjects } from "@/content/projects";
 
@@ -16,9 +17,22 @@ export default function FeaturedWork() {
         {featuredProjects.map((proj, i) => (
           <Link
             key={proj.slug}
-            href="/gallery"
-            className={`ph ${tones[i % tones.length]} aspect-[4/3] rounded-xs`}
+            href={`/gallery?project=${proj.slug}`}
+            className="relative flex aspect-[4/3] items-end overflow-hidden rounded-xs"
           >
+            {proj.cover ? (
+              <Image
+                src={proj.cover.src}
+                alt={proj.name}
+                fill
+                sizes="(min-width: 768px) 33vw, 100vw"
+                className="object-cover"
+              />
+            ) : (
+              <div className={`ph ${tones[i % tones.length]} absolute inset-0`}>
+                <span className="ph-label">Photo coming soon</span>
+              </div>
+            )}
             <div className="ph-tag">
               <div className="font-display text-[15px]">{proj.name}</div>
             </div>

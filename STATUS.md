@@ -5,9 +5,84 @@ and what's next; the ticket definitions live in
 [docs/cornerstone-redesign-plan-final.md](docs/cornerstone-redesign-plan-final.md).
 Update this file in the same change that moves a ticket's status.
 
-_Last updated: 2026-09-11_ (CDL-15)
+_Last updated: 2026-09-28_ (CDL-17)
 
 ## Done
+
+- **Ad-hoc: temporary password gate for the GitHub Pages demo host (outside
+  the plan).** `app/components/AccessGate.tsx` (client component) wraps
+  `Header`/`children`/`Footer` in `app/layout.tsx`, blocking the entire app —
+  any route, including deep links — behind a full-screen password form until
+  cleared. The password is hardcoded as a base64 string and compared via
+  `btoa(input) === PASSWORD_BASE64`; this is a soft gate to keep casual
+  visitors out of a temporary preview link, not real access control (the
+  static HTML is still present in the page source pre-unlock). On success, an
+  expiry timestamp (`Date.now() + 1h`) is written to `localStorage`;
+  `useSyncExternalStore` reads it back (subscribed to `storage`/a custom
+  `cornerstone-gate-changed` event, plus a 30s interval) so the gate
+  re-locks on its own once the hour elapses, without needing a reload. Styled
+  with the same `.field`/`.field-label`/`.btn.btn-primary` classes as
+  `LoginForm`, matching the mockup's dark theme. Remove `AccessGate` (and its
+  import/usage in `app/layout.tsx`) once the temporary hosting period ends.
+  - `npm run lint` and `npm run build` pass; verified in the browser — a
+    direct navigation to `/services` and `/gallery` shows the gate first, an
+    incorrect password shows an inline error, and the correct password
+    reveals the originally requested page and stays unlocked across
+    navigations.
+
+- **Ad-hoc: deep-link Home's Recent Work cards into the Gallery lightbox
+  (outside the plan).** `FeaturedWork`'s three cards now link to
+  `/gallery?project=<slug>` instead of a bare `/gallery`. `app/gallery/page.tsx`
+  is now `async` and reads the `searchParams` prop, resolves it to a `Project`
+  (only if the slug matches and the project has photos), and passes it to
+  `GalleryGrid` as `initialProject` — `GalleryGrid`'s `activeProject` state is
+  seeded from that prop, so the lightbox is already open, on the right project,
+  in the very first render (no client-only effect/flash). Closing the lightbox
+  calls `router.replace("/gallery", { scroll: false })` whenever
+  `window.location.search` is non-empty, so the URL cleans back up rather than
+  leaving a stale `?project=` a refresh would reopen.
+  - **Trade-off (flagged, not in the original estimate):** reading the
+    `searchParams` prop opts `/gallery` out of static prerendering —
+    `next build` now reports it `ƒ` (server-rendered on demand) instead of
+    `○` (static), reversing the "still prerenders static" note from CDL-11/12.
+    The alternative (client-side `useSearchParams`) would have kept the route
+    static but required wrapping `GalleryGrid` in `Suspense`, which per
+    Next.js's own prerendering behavior would have excluded the *entire*
+    25-project grid from the static HTML (not just the lightbox), a worse
+    trade for a content page like this. Reading the prop server-side was the
+    better of the two options, but the static→dynamic switch is still a real
+    cost worth knowing about if `/gallery`'s load time or hosting cost becomes
+    a concern later.
+  - `npm run lint` and `npm run build` pass; verified in the browser — a
+    Recent Work card navigates straight to `/gallery?project=<slug>` with the
+    lightbox already open on that project, and closing it (via the × button)
+    cleans the URL back to `/gallery`.
+
+- **CDL-17 — Real project photography (hero + featured work).** The Gallery
+  grid (CDL-11) and lightbox (CDL-12) already rendered real cover/full-set
+  photos from `content/gallery-images.generated.ts`; the two spots still
+  showing `.ph` placeholders were `Hero.tsx` and `FeaturedWork.tsx` on the
+  home page. Both now render the project's real `cover` image via `next/image`
+  (`fill` + `object-cover`), falling back to the existing `.ph` placeholder
+  treatment only if a project has no cover yet (none currently — all 25 have
+  photos). `Hero` reads the `5-points` project via `projectsBySlug` and is
+  `priority` (it's the LCP element); the mockup's invented
+  "Mixed-use residential · Vancouver, BC" subtitle is dropped rather than kept
+  as fake copy — same call CDL-12 already made for the lightbox, since no
+  category/location data source exists (CDL-10). `FeaturedWork` maps
+  `featuredProjects`' covers the same way `GalleryGrid` does, same fallback
+  tone-cycling (`ph-a`…`ph-d`) if a future project lacks a cover.
+  - **Hero rotation (open question, resolved).** Asked whether the hero
+    should cross-fade between multiple photos; decided to keep it a single
+    static image — simpler, better for LCP, and more in line with the
+    "corporate trust-builder" direction than a rotating carousel. No client
+    JS or interval/transition logic was added.
+  - **Optimization (AC):** unchanged from CDL-10/11 — `next/image` handles
+    responsive `srcset`/format negotiation for every image already; this
+    ticket only swapped the two remaining `.ph` call sites to use it.
+  - `npm run lint` and `npm run build` pass; verified in the browser that the
+    hero and Recent Work cards render the real photos with captions, matching
+    the Gallery grid's existing treatment.
 
 - **CDL-15 — Login page UI (stub only).** `app/login/page.tsx` (server
   component, static `metadata`) + `app/components/LoginForm.tsx` (client
@@ -369,7 +444,7 @@ _Last updated: 2026-09-11_ (CDL-15)
 
 ## Not started
 
-CDL-17 … CDL-25 — see the plan.
+CDL-18 … CDL-25 — see the plan.
 
 ## Notes carried forward
 

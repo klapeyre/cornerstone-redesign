@@ -1,4 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
+import { projectsBySlug } from "@/content/projects";
+
+const heroProject = projectsBySlug["5-points"];
 
 export default function Hero() {
   return (
@@ -25,15 +29,28 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="ph aspect-[6/5] rounded-xs">
-        <span className="ph-label">Photo placeholder</span>
-        <div className="ph-tag">
-          <div className="font-display text-[18px]">5 Points</div>
-          <div className="text-xs opacity-85">
-            Mixed-use residential · Vancouver, BC
+      {heroProject?.cover ? (
+        <div className="relative aspect-[6/5] overflow-hidden rounded-xs">
+          <Image
+            src={heroProject.cover.src}
+            alt={heroProject.name}
+            fill
+            priority
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+          />
+          <div className="ph-tag absolute inset-x-0 bottom-0">
+            <div className="font-display text-[18px]">{heroProject.name}</div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="ph aspect-[6/5] rounded-xs">
+          <span className="ph-label">Photo placeholder</span>
+          <div className="ph-tag">
+            <div className="font-display text-[18px]">5 Points</div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
